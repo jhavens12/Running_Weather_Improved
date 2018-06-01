@@ -12,14 +12,14 @@ view = ui.View(bg_color = 'white', frame = (0,0,w,h)) #main view
 def vis(w,h):
 
     vis = {}
-    vis['side_margin'] = 5
+    vis['side_margin'] = 3
     vis['w_adjusted'] = w-vis['side_margin']
     vis['top_margin'] = 20
     vis['other_label_height'] = 32
     vis['spacing_margin'] = 0
 
     #Subview
-    vis['subview_w'] = (w/3)-vis['side_margin']
+    vis['subview_w'] = (w/3)-(vis['side_margin']*2)
     vis['subview_h'] = h-(vis['top_margin']*3) #this is whats actually used
     vis['subview_y'] = vis['top_margin']
     vis['subview_x'] = vis['side_margin']
