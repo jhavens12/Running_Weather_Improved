@@ -27,7 +27,7 @@ def vis(w,h):
     #Header
     vis['header_x'] = vis['side_margin'] * 2
     vis['header_y'] = vis['top_margin'] / 2
-    vis['header_width'] = vis['subview_width']-(vis['side_margin']*4)
+    vis['header_width'] = vis['subview_w']-(vis['side_margin']*4)
     vis['header_height'] = 70
 
     #Image View
@@ -39,14 +39,14 @@ def vis(w,h):
     #Title Labels
     vis['title_label_x'] = vis['side_margin']
     vis['title_label_y'] = vis['imageview_y']+vis['imageview_height']
-    vis['title_label_width'] = vis['subview_width']-(vis['side_margin']*4)
+    vis['title_label_width'] = vis['subview_w']-(vis['side_margin']*4)
     vis['title_label_height'] = vis['other_label_height']
     vis['title_label_margins'] = -1
 
     #Value Labels
     vis['value_label_x'] = vis['side_margin'] * 2
     vis['value_label_y'] = vis['imageview_y'] + vis['imageview_height'] + (vis['other_label_height']/2)
-    vis['value_label_width'] = vis['subview_width']-(vis['side_margin']*4)
+    vis['value_label_width'] = vis['subview_w']-(vis['side_margin']*4)
     vis['value_label_height'] = vis['other_label_height']
     vis['value_label_margins'] = vis['title_label_margins']
 
