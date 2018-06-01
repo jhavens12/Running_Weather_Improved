@@ -7,7 +7,7 @@ import datetime
 w,h = ui.get_screen_size()
 view = ui.View(bg_color = 'white', frame = (0,0,w,h)) #main view
 
-#forecast_dict = get_data.forecast_me() #get actual data
+forecast_dict = get_data.forecast_me() #get actual data
 
 def vis(w,h):
 
@@ -73,6 +73,13 @@ am_3_subview = ui.View(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['
 pm_1_subview = ui.View(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'black')
 pm_2_subview = ui.View(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'black')
 pm_3_subview = ui.View(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'black')
+
+
+
+
+
+
+
 
 view.add_subview(am_1_subview)
 view.add_subview(am_2_subview)
