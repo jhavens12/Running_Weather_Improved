@@ -27,6 +27,8 @@ def vis(w,h):
     vis['subview_h'] = h-(vis['top_margin']*3) #this is whats actually used
     vis['subview_y'] = vis['top_margin']
     vis['subview_x'] = vis['side_margin']
+    vis['subview_scroll_size_w'] = vis['subview_w']
+    vis['subview_scroll_size_h'] = vis['subview_h'] * 1.3
 
     #Header
     vis['header_x'] = vis['side_margin'] * 2
@@ -66,9 +68,9 @@ def vis(w,h):
     vis['button_width'] = vis['header_width']
 
     #Text Size?
-    vis['title_label_size'] = 10
-    vis['value_label_size'] = 11
-    vis['header_label_size'] = 13
+    vis['title_label_size'] = 14
+    vis['value_label_size'] = 12
+    vis['header_label_size'] = 16
 
 
     return vis
@@ -299,14 +301,13 @@ vis = vis(w,h)
 
 #need to create 6 subviews
 subview_list = []
-am_1_subview = ui.ScrollView(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink')
-am_1_subview.content_size = (vis['subview_w'], (vis['subview_h']*2))
-am_2_subview = ui.View(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink')
-am_3_subview = ui.View(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink')
+am_1_subview = ui.ScrollView(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+am_2_subview = ui.ScrollView(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+am_3_subview = ui.ScrollView(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
-pm_1_subview = ui.View(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow')
-pm_2_subview = ui.View(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow')
-pm_3_subview = ui.View(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow')
+pm_1_subview = ui.ScrollView(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm_2_subview = ui.ScrollView(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm_3_subview = ui.ScrollView(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
 view.add_subview(am_1_subview)
 view.add_subview(am_2_subview)
