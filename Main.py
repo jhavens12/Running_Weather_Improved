@@ -252,21 +252,20 @@ def timeset_view(n,vis,ui,day,timeset):
 
     return imageview
 
-def gen_title_label(n,vis,ui,view_name,title_label_list):
+def gen_title_label(c,data,view_name):
 
-    for x,text in enumerate(title_label_list):
-        adjusted_label_y = vis['title_label_y'] +( x*( vis['other_label_height'] + vis['title_label_margins'] ) )
-        x = x+1
-        label_name = "tlabel"+str(view_name)+str(x)
-        label = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['title_label_x'], adjusted_label_y, vis['title_label_width'], vis['title_label_height']))
-        label.border_color = 'black'
-        label.text_color = 'black'
-        label.border_width = 0
-        label.alignment = 0 #1 is center, #0 is left justified
-        label.font = ('<system-bold>',vis['title_label_size'])
-        label.number_of_lines = 1
-        label.text = text
-        view_name.add_subview(label)
+    adjusted_label_y = vis['title_label_y'] +( c*( vis['other_label_height'] + vis['title_label_margins'] ) )
+    c = c+1
+    label_name = "tlabel"+str(view_name)+str(c)
+    label = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['title_label_x'], adjusted_label_y, vis['title_label_width'], vis['title_label_height']))
+    label.border_color = 'black'
+    label.text_color = data['text_color']
+    label.border_width = 0
+    label.alignment = 0 #1 is center, #0 is left justified
+    label.font = ('<system-bold>',vis['title_label_size'])
+    label.number_of_lines = 1
+    label.text = str(data['title'])
+    return label
 
 def gen_value_label(c,data,view_name):
     adjusted_label_y = vis['value_label_y'] +( c*(vis['value_label_height']+vis['title_label_margins']) )
@@ -322,8 +321,9 @@ for working_subview,day in zip(subview_list,forecast_dict['AM']): #for each am d
     for c,item in enumerate(forecast_dict['AM'][day]['data']):
         if item != 'status':
             #title = gen_title_label()
+            value_title = gen_value_title(c,forecast_dict['AM'][day]['data'][item],working_subview)
             value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
-            working_subview.add(value_label)
+            working_subview.add_subview(value_label,value_title)
 
 
     #set the subview background somehow
