@@ -312,7 +312,7 @@ for working_subview,day in zip(subview_list,forecast_dict['AM']): #for each am d
 
     print(working_subview)
 
-    header = headers(day,'AM',working_subview)
+    header = headers(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(header)
     #timeset_view = timeset_view(n,vis,ui,day,'am')
     #imageview = imageview(n,vis,ui,day,view_name)
