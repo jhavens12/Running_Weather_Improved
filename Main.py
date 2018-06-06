@@ -313,7 +313,7 @@ def gen_value_label(c,data,view_name):
     label.border_width = 0
     label.alignment = 3 #1 is center, #0 is left justified
     label.font = ('<system>',vis['value_label_size'])
-    label.number_of_lines = 1
+    label.number_of_lines = 0
     label.text = str(data['value'])
     return label
 
@@ -362,7 +362,7 @@ pm_subview_list.append(pm_1_subview)
 pm_subview_list.append(pm_2_subview)
 pm_subview_list.append(pm_3_subview)
 
-for working_subview,day in zip(subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
+for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
     header = headers(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(header)
     timeset_view = gen_timeset_view(forecast_dict['AM'][day],'AM',working_subview)
