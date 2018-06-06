@@ -28,7 +28,7 @@ def vis(w,h):
     vis['subview_y'] = vis['top_margin']
     vis['subview_x'] = vis['side_margin']
     vis['subview_scroll_size_w'] = vis['subview_w']
-    vis['subview_scroll_size_h'] = vis['subview_h'] * 1.1
+    vis['subview_scroll_size_h'] = vis['subview_h'] * 1.5
 
     #Header
     vis['header_x'] = vis['side_margin'] * 2
@@ -467,12 +467,12 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
     working_subview.add_subview(imageview)
 
     for c,item in enumerate(forecast_dict['PM'][day]['data']):
-        if item != 'status':
+        #if item != 'status':
             #title = gen_title_label()
-            value_title = gen_title_label(c,forecast_dict['PM'][day]['data'][item],working_subview)
-            value_label = gen_value_label(c,forecast_dict['PM'][day]['data'][item],working_subview)
-            working_subview.add_subview(value_title)
-            working_subview.add_subview(value_label)
+        value_title = gen_title_label(c,forecast_dict['PM'][day]['data'][item],working_subview)
+        value_label = gen_value_label(c,forecast_dict['PM'][day]['data'][item],working_subview)
+        working_subview.add_subview(value_title)
+        working_subview.add_subview(value_label)
 
 if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
     view.remove_subview(view['button_am1']) #remove first button
