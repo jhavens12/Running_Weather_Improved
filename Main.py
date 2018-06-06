@@ -344,9 +344,9 @@ def gen_switch_buttons(c,view_name):
     return button
 
 def switch_pressed(self):
-    #print ("Pressed "+self.name)
+    print ("Pressed "+self.name)
     if "am" in self.name: #passed name like button_AM1
-        #print("Button pressed and AM displayed")
+        print("Button pressed and AM displayed")
         view_name = self.name.replace("button_","")
         view_number = view_name.replace("am","")
         new_view_name = "pm"+view_number
@@ -360,7 +360,7 @@ def switch_pressed(self):
         view.add_subview(button)
 
     if "pm" in self.name:
-        #print("Button pressed and PM displayed")
+        print("Button pressed and PM displayed")
         view_name = self.name.replace("button_","")
         view_number = view_name.replace("pm","")
         new_view_name = "am"+view_number
@@ -465,8 +465,10 @@ if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
     #and am 2 to am 3
     am2.frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h'])
     am2.title = 'am3'
+    view_dict['am2'] = view_dict['am3'] #move 2 to 3
     am1.frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h'])
     am1.title = 'am2'
+    view_dict['am1'] = view_dict['am2'] #then move 1 to 2
 
     #BUTTONS
     button = gen_switch_buttons(2,'am2')
