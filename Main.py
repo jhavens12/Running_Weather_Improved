@@ -23,7 +23,7 @@ def vis(w,h):
     vis['spacing_margin'] = 0
 
     #Subview
-    vis['subview_w'] = (w-(vis['side_margin']*3)/3#(w/3)-(vis['side_margin']*2)
+    vis['subview_w'] = (w-(vis['side_margin']*3))/3#(w/3)-(vis['side_margin']*2)
     vis['subview_h'] = h-(vis['top_margin']*3) #this is whats actually used
     vis['subview_y'] = vis['top_margin']
     vis['subview_x'] = vis['side_margin']
@@ -441,22 +441,25 @@ vis = vis(w,h)
 #need to create 6 subviews
 view_dict = {}
 
+frame_1 = (vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h'])
+frame_2 = ((vis['subview_x'] + vis['subview_w']), vis['subview_y'], vis['subview_w'], vis['subview_h'])
+frame_3 = ((vis['subview_x'] + vis['subview_w'])*2, vis['subview_y'], vis['subview_w'], vis['subview_h'])
 am_subview_list = []
 bg_color = 'black'#'#5cd65c'
-am1 = ui.ScrollView(title='am1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color,\
+am1 = ui.ScrollView(title='am1', frame=frame_1, background_color = bg_color,\
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-am2 = ui.ScrollView(title='am2', frame=((vis['subview_x'] + vis['subview_w']), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, \
+am2 = ui.ScrollView(title='am2', frame=frame_2, background_color = bg_color, \
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-am3 = ui.ScrollView(title='am3', frame=((vis['subview_x'] + vis['subview_w'])*2, vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, \
+am3 = ui.ScrollView(title='am3', frame=frame_3, background_color = bg_color, \
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
 bg_color = 'black'#'#F8333C'
 pm_subview_list = []
-pm1 = ui.ScrollView(title='pm1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color,\
+pm1 = ui.ScrollView(title='pm1', frame=frame_1, background_color = bg_color,\
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-pm2 = ui.ScrollView(title='pm2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color,\
+pm2 = ui.ScrollView(title='pm2', frame=frame_2, background_color = bg_color,\
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-pm3 = ui.ScrollView(title='pm3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color,\
+pm3 = ui.ScrollView(title='pm3', frame=frame_3, background_color = bg_color,\
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
 am_subview_list.append(am1)
@@ -528,11 +531,11 @@ if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
     view.add_subview(pm1) #add pm subview to first slot
     #move am1 to am2
     #and am 2 to am 3
-    am2.frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']) #move frame
+    am2.frame=frame_3 #move frame
     am2.title = 'am3' #change title
     view_dict['am3'] = view_dict['am2'] #move in dictionary (button uses)
 
-    am1.frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h'])
+    am1.frame=frame_2
     am1.title = 'am2'
     view_dict['am2'] = view_dict['am1'] #then move 1 to 2
     #pprint(view_dict)
