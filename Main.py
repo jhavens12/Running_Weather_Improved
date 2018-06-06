@@ -198,7 +198,8 @@ def build_data(forecast_dict):
             if windchill_status != None: forecast_dict[peroid][day]['data']['status'].append(windchill_status)
 
             #STATUS
-            working_status = "\n".join(forecast_dict[peroid][day]['data']['status']))
+            working_status = []
+            working_status.append("\n".join(forecast_dict[peroid][day]['data']['status']))
             forecast_dict[peroid][day]['data']['status'] = {}
             forecast_dict[peroid][day]['data']['status']['title'] = 'Status:'
             forecast_dict[peroid][day]['data']['status']['value'] = working_status
