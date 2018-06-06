@@ -36,17 +36,17 @@ def vis(w,h):
     vis['header_width'] = vis['subview_w']-(vis['side_margin']*4)
     vis['header_height'] = 70
 
-    #Image View
-    vis['imageview_x'] = vis['header_x'] + (vis['side_margin'] * 2)
-    vis['imageview_y'] = vis['header_y'] + vis['header_height'] + vis['spacing_margin']
-    vis['imageview_width'] = vis['header_width'] - (vis['side_margin'] * 4) #w/3 - (vis['side_margin'] *8)
-    vis['imageview_height'] = vis['imageview_width']
-
     #Timeset View
     vis['timesetview_x'] = vis['header_x'] + (vis['side_margin'] * 2)
     vis['timesetview_y'] = vis['header_y'] + vis['header_height'] + vis['spacing_margin']
     vis['timesetview_width'] = vis['header_width'] - (vis['side_margin'] * 4) #w/3 - (vis['side_margin'] *8)
-    vis['timesetview_height'] = vis['imageview_width']
+    vis['timesetview_height'] = vis['timesetview_width']
+
+    #Image View
+    vis['imageview_x'] = vis['header_x'] + (vis['side_margin'] * 2)
+    vis['imageview_y'] = vis['timesetview_y'] + vis['header_height'] + vis['spacing_margin']
+    vis['imageview_width'] = vis['header_width'] - (vis['side_margin'] * 4) #w/3 - (vis['side_margin'] *8)
+    vis['imageview_height'] = vis['imageview_width']
 
     #Title Labels
     vis['title_label_x'] = vis['side_margin']
