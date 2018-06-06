@@ -493,7 +493,7 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
     imageview = gen_imageview(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(imageview)
     bg_color = evaluate_conditions(forecast_dict['AM'][day])
-    working_subreddit.background_color = bg_color
+    working_subview.background_color = bg_color
 
     for c,item in enumerate(forecast_dict['AM'][day]['data']):
         #if item != 'status':
@@ -522,7 +522,7 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
     imageview = gen_imageview(forecast_dict['PM'][day],'PM',working_subview)
     working_subview.add_subview(imageview)
     bg_color = evaluate_conditions(forecast_dict['AM'][day])
-    working_subreddit.background_color = bg_color
+    working_subview.background_color = bg_color
 
     for c,item in enumerate(forecast_dict['PM'][day]['data']):
         #if item != 'status':
