@@ -325,7 +325,7 @@ def gen_value_label(c,data,view_name):
     adjusted_label_y = vis['value_label_y'] +( c*(vis['value_label_height']+vis['title_label_margins']) )
     c = c+1
     label_name = "vlabel"+str(view_name)+str(c)
-    if data['title'] = 'Status:' #make status label taller
+    if data['title'] == 'Status:' : #make status label taller
         vis['value_label_height'] = vis['value_label_height'] * 4
     label = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['value_label_x'], adjusted_label_y, vis['value_label_width'], vis['value_label_height']))
     label.text_color = data['text_color']
@@ -405,12 +405,12 @@ vis = vis(w,h)
 view_dict = {}
 
 am_subview_list = []
-bg_color = 'light-blue'
+bg_color = '#42b3f4'
 am1 = ui.ScrollView(title='am1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 am2 = ui.ScrollView(title='am2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 am3 = ui.ScrollView(title='am3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
-bg_color = 'blue'
+bg_color = '#415cf4'
 pm_subview_list = []
 pm1 = ui.ScrollView(title='pm1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'blue', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 pm2 = ui.ScrollView(title='pm2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
