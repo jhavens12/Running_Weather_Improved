@@ -69,7 +69,7 @@ def vis(w,h):
 
     #Text Size?
     vis['title_label_size'] = 14
-    vis['value_label_size'] = 12
+    vis['value_label_size'] = 16
     vis['header_label_size'] = 16
 
 
