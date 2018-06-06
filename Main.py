@@ -79,14 +79,15 @@ def eval_text_color(value,type):
     value = float(value)
 
     good = 'black'#'#006d17'
-    not_good = '#e60000'
-    okay = '#c15d05'#"#ff884d"
+    not_good = 'white'#'#FCAB10'#'#e60000'
+    okay = 'white'#"#ff884d"
 
+    #TEMPERATURE
     if type == 'temp':
         if value < 20:
             status = 'Temp of '+str(value)+' is pretty cold'
             return not_good, status
-        if value > 80:
+        if value > 90:
             status = 'Temp of '+str(value)+' is pretty hot'
             return not_good
         else:
@@ -104,6 +105,7 @@ def eval_text_color(value,type):
         else:
             return good,None
 
+    #PERCIPITATION
     if type == 'pop':
         if value == 0:
             status = 'Chance of precipitation '+str(value)+' is SUPER LOW'
@@ -116,7 +118,7 @@ def eval_text_color(value,type):
             return not_good, status
         else:
             return good,None
-
+    #HUMIDITY
     if type == 'humidity':
         if value > 70:
             status = 'Humidity of '+str(value)+' is pretty high'
@@ -131,42 +133,36 @@ def evaluate_conditions(day):
 
     good = '#5cd65c'
     not_good = '#F8333C'
-    okay = "#ff884d"
+    okay = "#FCAB10"
 
     bg_color = good
-    #current_date = day['time']['mon_abbrev']+" "+day['time']['mday']+" "+day['time']['weekday_name']+" "+day['time']['civil']
     current_date = day['time']['weekday_name']+" "+day['time']['civil']
 
     #TEMPERATURE
     if float(day['weather']['feelslike']['english']) < 20 or float(day['weather']['feelslike']['english']) > 90:
         bg_color = not_good
-        print(current_date+" Temp is "+str(day['weather']['feelslike']['english'])+" - NOT GOOD")
         return bg_color #temp that extreme sends it
 
-    if float(day['weather']['feelslike']['english']) < 35 or float(day['weather']['feelslike']['english']) > 80:
+    if float(day['weather']['feelslike']['english']) < 20 or float(day['weather']['feelslike']['english']) > 90:
         bg_color = okay
-        print(current_date+" Temp is "+str(day['weather']['feelslike']['english'])+" - OKAY")
-        #move on to see if something else turns it red
 
     #PERCIPITATION
-    if float(day['weather']['pop']) > 50:
+    if float(day['weather']['pop']) > 60:
         bg_color = not_good
-        print(current_date+" POP is "+str(day['weather']['pop'])+" - NOT GOOD")
         return bg_color
 
-    if float(day['weather']['pop']) > 30:
+    if float(day['weather']['pop']) > 40:
         bg_color = okay
-        print(current_date+" POP is "+str(day['weather']['pop'])+" - OKAY")
 
     #HUMIDITY
     if float(day['weather']['humidity']) > 80:
         bg_color = not_good
-        print(current_date+" Humidity is "+str(day['weather']['humidity'])+" - NOT GOOD")
+
         return bg_color
 
     if float(day['weather']['humidity']) > 70:
         bg_color = okay
-        print(current_date+" Humidity is "+str(day['weather']['humidity'])+" - OKAY")
+
 
     return bg_color
 
