@@ -465,10 +465,13 @@ if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
     #and am 2 to am 3
     am2.frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h'])
     am2.title = 'am3'
-    view_dict['am2'] = view_dict['am3'] #move 2 to 3
+     =  #move 2 to 3
+    view_dict['am3'] = view_dict['am2']
+
     am1.frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h'])
     am1.title = 'am2'
-    view_dict['am1'] = view_dict['am2'] #then move 1 to 2
+    view_dict['am2'] = view_dict['am1'] #then move 1 to 2
+    pprint(view_dict)
 
     #BUTTONS
     button = gen_switch_buttons(2,'am2')
