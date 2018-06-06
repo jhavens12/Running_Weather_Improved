@@ -127,6 +127,49 @@ def eval_text_color(value,type):
         else:
             return good,None
 
+def evaluate_conditions(day):
+
+    good = '#5cd65c'
+    not_good = '#F8333C'
+    okay = "#ff884d"
+
+    bg_color = good
+    #current_date = day['time']['mon_abbrev']+" "+day['time']['mday']+" "+day['time']['weekday_name']+" "+day['time']['civil']
+    current_date = day['time']['weekday_name']+" "+day['time']['civil']
+
+    #TEMPERATURE
+    if float(day['weather']['feelslike']['english']) < 20 or float(day['weather']['feelslike']['english']) > 90:
+        bg_color = not_good
+        print(current_date+" Temp is "+str(day['weather']['feelslike']['english'])+" - NOT GOOD")
+        return bg_color #temp that extreme sends it
+
+    if float(day['weather']['feelslike']['english']) < 35 or float(day['weather']['feelslike']['english']) > 80:
+        bg_color = okay
+        print(current_date+" Temp is "+str(day['weather']['feelslike']['english'])+" - OKAY")
+        #move on to see if something else turns it red
+
+    #PERCIPITATION
+    if float(day['weather']['pop']) > 50:
+        bg_color = not_good
+        print(current_date+" POP is "+str(day['weather']['pop'])+" - NOT GOOD")
+        return bg_color
+
+    if float(day['weather']['pop']) > 30:
+        bg_color = okay
+        print(current_date+" POP is "+str(day['weather']['pop'])+" - OKAY")
+
+    #HUMIDITY
+    if float(day['weather']['humidity']) > 80:
+        bg_color = not_good
+        print(current_date+" Humidity is "+str(day['weather']['humidity'])+" - NOT GOOD")
+        return bg_color
+
+    if float(day['weather']['humidity']) > 70:
+        bg_color = okay
+        print(current_date+" Humidity is "+str(day['weather']['humidity'])+" - OKAY")
+
+    return bg_color
+
 def build_data(forecast_dict):
     for peroid in forecast_dict:
         for day in forecast_dict[peroid]:
@@ -410,7 +453,7 @@ vis = vis(w,h)
 view_dict = {}
 
 am_subview_list = []
-bg_color = '#5cd65c'
+bg_color = 'black'#'#5cd65c'
 am1 = ui.ScrollView(title='am1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color,\
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 am2 = ui.ScrollView(title='am2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, \
@@ -418,7 +461,7 @@ am2 = ui.ScrollView(title='am2', frame=((vis['subview_x']*2) + vis['subview_w'],
 am3 = ui.ScrollView(title='am3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, \
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
-bg_color = '#F8333C'
+bg_color = 'black'#'#F8333C'
 pm_subview_list = []
 pm1 = ui.ScrollView(title='pm1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color,\
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
@@ -449,6 +492,8 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
     #working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(imageview)
+    bg_color = evaluate_conditions(forecast_dict['AM'][day])
+    working_subreddit.background_color = bg_color
 
     for c,item in enumerate(forecast_dict['AM'][day]['data']):
         #if item != 'status':
@@ -476,6 +521,8 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
     #working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['PM'][day],'PM',working_subview)
     working_subview.add_subview(imageview)
+    bg_color = evaluate_conditions(forecast_dict['AM'][day])
+    working_subreddit.background_color = bg_color
 
     for c,item in enumerate(forecast_dict['PM'][day]['data']):
         #if item != 'status':
