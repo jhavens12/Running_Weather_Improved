@@ -309,15 +309,15 @@ subview_list.append(am_2_subview)
 subview_list.append(am_3_subview)
 
 
-for n,day in enumerate(forecast_dict['AM']): #for each am day, build objects to add to subview and add them
-    n = n + 1
-    working_subview = 'am_'+str(n)+'_subview'
+for working_subview,day in zip(subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
+
     print(working_subview)
 
     #header = headers(n,vis,ui,day,'AM')
     #timeset_view = timeset_view(n,vis,ui,day,'am')
     #imageview = imageview(n,vis,ui,day,view_name)
     #title_labels = title_labels()
+    #status_window
 
     for c,item in enumerate(forecast_dict['AM'][day]['data']):
         if item != 'status':
