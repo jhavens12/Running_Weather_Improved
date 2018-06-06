@@ -349,7 +349,7 @@ def switch_pressed(self):
         #print("Button pressed and AM displayed")
         view_name = self.name.replace("button_","")
         view_number = view_name.replace("am","")
-        new_view_name = "PM"+view_number
+        new_view_name = "pm"+view_number
         view.remove_subview(view_dict[view_name]) #view_dict contains names as keys and view objects as values
         view.remove_subview(self) #remove button
         view.add_subview(view_dict[new_view_name])
@@ -363,7 +363,7 @@ def switch_pressed(self):
         #print("Button pressed and PM displayed")
         view_name = self.name.replace("button_","")
         view_number = view_name.replace("pm","")
-        new_view_name = "AM"+view_number
+        new_view_name = "am"+view_number
         view.remove_subview(view_dict[view_name]) #view_dict contains names as keys and view objects as values
         view.remove_subview(self) #remove button
         view.add_subview(view_dict[new_view_name])
@@ -406,6 +406,7 @@ pm_subview_list.append(pm1)
 pm_subview_list.append(pm2)
 pm_subview_list.append(pm3)
 
+#need this for the button_pressed function only
 for x in am_subview_list:
     view_dict[x.title] = x
 for x in pm_subview_list:
