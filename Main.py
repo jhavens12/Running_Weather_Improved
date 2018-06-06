@@ -94,11 +94,11 @@ def eval_text_color(value,type):
 
     if type == 'windchill':
         if value < 10:
+            if value == -9999:
+                return good,None
             status = 'Windchill of '+str(value)+' is damn cold'
             return not_good, status
         if value < 20:
-            if value == -9999:
-                return good,None
             status = 'Windchill of '+str(value)+' is too cold'
             return not_good
         else:
@@ -499,7 +499,7 @@ if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
     am1.frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h'])
     am1.title = 'am2'
     view_dict['am2'] = view_dict['am1'] #then move 1 to 2
-    pprint(view_dict)
+    #pprint(view_dict)
 
     #BUTTONS
     button = gen_switch_buttons(2,'am2') #generate second button
