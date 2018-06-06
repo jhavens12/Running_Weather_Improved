@@ -469,13 +469,13 @@ if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
     am1.title = 'am2'
 
     #BUTTONS
-    button = gen_switch_buttons(2,am2) #pass cycle number, view name(data), vis library and ui element
+    button = gen_switch_buttons(2,'am2')
     button.action = switch_pressed
-    view.add_subview(button) #each view gets a button
+    view.add_subview(button)
 
-    button = gen_switch_buttons(3,am3) #pass cycle number, view name(data), vis library and ui element
+    button = gen_switch_buttons(3,'am3')
     button.action = switch_pressed
-    view.add_subview(button) #each view gets a button
+    view.add_subview(button)
 
     view.add_subview(am1)
     view.add_subview(am2)
