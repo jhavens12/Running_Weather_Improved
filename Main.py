@@ -458,6 +458,8 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
 
 if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
     view.remove_subview(view['button_am1']) #remove first button
+    view.remove_subview(view['button_am2']) #remove first button
+    view.remove_subview(view['button_am3']) #remove first button
     view.add_subview(pm1) #add pm subview to first slot
     #move am1 to am2
     #and am 2 to am 3
@@ -465,6 +467,16 @@ if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
     am2.title = 'am3'
     am1.frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h'])
     am1.title = 'am2'
+
+    #BUTTONS
+    button = gen_switch_buttons(2,am2) #pass cycle number, view name(data), vis library and ui element
+    button.action = switch_pressed
+    view.add_subview(button) #each view gets a button
+
+    button = gen_switch_buttons(3,am3) #pass cycle number, view name(data), vis library and ui element
+    button.action = switch_pressed
+    view.add_subview(button) #each view gets a button
+
     view.add_subview(am1)
     view.add_subview(am2)
 
