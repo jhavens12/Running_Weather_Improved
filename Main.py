@@ -299,7 +299,8 @@ vis = vis(w,h)
 
 #need to create 6 subviews
 subview_list = []
-am_1_subview = ui.View(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_w'], (vis['subview_h']*2)))
+am_1_subview = ui.ScrollView(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink')
+am_1_subview.content_size = (vis['subview_w'], (vis['subview_h']*2))
 am_2_subview = ui.View(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink')
 am_3_subview = ui.View(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink')
 
