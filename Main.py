@@ -133,7 +133,6 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data'] = {}
             forecast_dict[peroid][day]['data']['status'] = []
 
-
             #CONDITION
             forecast_dict[peroid][day]['data']['condition'] = {}
             forecast_dict[peroid][day]['data']['condition']['title'] = 'Condition:'
@@ -198,6 +197,13 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['windchill']['text_color'] = text_color
             if windchill_status != None: forecast_dict[peroid][day]['data']['status'].append(windchill_status)
 
+            #STATUS
+            working_status = "\n".join(forecast_dict[peroid][day]['data']['status']))
+            forecast_dict[peroid][day]['data']['status'] = {}
+            forecast_dict[peroid][day]['data']['status']['title'] = 'Status:'
+            forecast_dict[peroid][day]['data']['status']['value'] = working_status
+            forecast_dict[peroid][day]['data']['status']['text_color'] = regular
+
             if peroid == 'AM':
                 #Astro
                 forecast_dict[peroid][day]['data']['astronomical_twilight'] = {}
@@ -213,9 +219,9 @@ def build_data(forecast_dict):
 
                 #Civil
                 forecast_dict[peroid][day]['data']['civil_twilight'] = {}
-                forecast_dict[peroid][day]['data']['civil__twilight']['title'] = 'Civil Twilight:'
-                forecast_dict[peroid][day]['data']['civil__twilight']['value'] = forecast_dict[peroid][day]['twilight']['civil__twilight_begin_time']
-                forecast_dict[peroid][day]['data']['civil__twilight']['text_color'] = regular
+                forecast_dict[peroid][day]['data']['civil_twilight']['title'] = 'Civil Twilight:'
+                forecast_dict[peroid][day]['data']['civil_twilight']['value'] = forecast_dict[peroid][day]['twilight']['civil_twilight_begin_time']
+                forecast_dict[peroid][day]['data']['civil_twilight']['text_color'] = regular
 
                 #sunrise
                 forecast_dict[peroid][day]['data']['sunrise_time'] = {}
@@ -309,6 +315,20 @@ def gen_value_label(c,data,view_name):
     label.text = str(data['value'])
     return label
 
+def gen_status_label(c,data,view_name):
+    adjusted_label_y = vis['value_label_y'] +( c*(vis['value_label_height']+vis['title_label_margins']) )
+    c = c+1
+    label_name = "vlabel"+str(view_name)+str(c)
+    label = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['value_label_x'], adjusted_label_y, vis['value_label_width'], vis['value_label_height']))
+    print(data)
+    label.text_color = data['text_color']
+    label.border_width = 0
+    label.alignment = 3 #1 is center, #0 is left justified
+    label.font = ('<system>',vis['value_label_size'])
+    label.number_of_lines = 1
+    label.text = str(data['value'])
+    return label
+
 w,h = ui.get_screen_size()
 view = ui.View(bg_color = 'white', frame = (0,0,w,h)) #main view
 
@@ -318,11 +338,12 @@ forecast_dict = build_data(forecast_dict) #modify data
 vis = vis(w,h)
 
 #need to create 6 subviews
-subview_list = []
+am_subview_list = []
 am_1_subview = ui.ScrollView(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 am_2_subview = ui.ScrollView(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 am_3_subview = ui.ScrollView(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
+pm_subview_list = []
 pm_1_subview = ui.ScrollView(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 pm_2_subview = ui.ScrollView(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 pm_3_subview = ui.ScrollView(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
@@ -331,15 +352,15 @@ view.add_subview(am_1_subview)
 view.add_subview(am_2_subview)
 view.add_subview(am_3_subview)
 
-subview_list.append(am_1_subview)
-subview_list.append(am_2_subview)
-subview_list.append(am_3_subview)
+am_subview_list.append(am_1_subview)
+am_subview_list.append(am_2_subview)
+am_subview_list.append(am_3_subview)
 
+pm_subview_list.append(pm_1_subview)
+pm_subview_list.append(pm_2_subview)
+pm_subview_list.append(pm_3_subview)
 
 for working_subview,day in zip(subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
-
-    print(working_subview)
-
     header = headers(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(header)
     timeset_view = gen_timeset_view(forecast_dict['AM'][day],'AM',working_subview)
@@ -350,12 +371,12 @@ for working_subview,day in zip(subview_list,forecast_dict['AM']): #for each am d
     #status_window
 
     for c,item in enumerate(forecast_dict['AM'][day]['data']):
-        if item != 'status':
+        #if item != 'status':
             #title = gen_title_label()
-            value_title = gen_title_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
-            value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
-            working_subview.add_subview(value_title)
-            working_subview.add_subview(value_label)
+        value_title = gen_title_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
+        value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
+        working_subview.add_subview(value_title)
+        working_subview.add_subview(value_label)
 
 
     #set the subview background somehow
