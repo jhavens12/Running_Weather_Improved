@@ -323,7 +323,8 @@ for working_subview,day in zip(subview_list,forecast_dict['AM']): #for each am d
             #title = gen_title_label()
             value_title = gen_title_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
             value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
-            working_subview.add_subview(value_label,value_title)
+            working_subview.add_subview(value_title)
+            working_subview.add_subview(value_label)
 
 
     #set the subview background somehow
