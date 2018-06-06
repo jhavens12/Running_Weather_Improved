@@ -23,7 +23,7 @@ def vis(w,h):
     vis['spacing_margin'] = 0
 
     #Subview
-    vis['subview_w'] = (w-(vis['side_margin']*3))/3#(w/3)-(vis['side_margin']*2)
+    vis['subview_w'] = (w-(vis['side_margin']*4))/3#(w/3)-(vis['side_margin']*2)
     vis['subview_h'] = h-(vis['top_margin']*3) #this is whats actually used
     vis['subview_y'] = vis['top_margin']
     vis['subview_x'] = vis['side_margin']
@@ -442,8 +442,9 @@ vis = vis(w,h)
 view_dict = {}
 
 frame_1 = (vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h'])
-frame_2 = ((vis['subview_x'] + vis['subview_w']), vis['subview_y'], vis['subview_w'], vis['subview_h'])
-frame_3 = ((vis['subview_x'] + vis['subview_w'])*2, vis['subview_y'], vis['subview_w'], vis['subview_h'])
+frame_2 = (vis['subview_x']*2 + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h'])
+frame_3 = (vis['subview_x']*3 + vis['subview_w']*2, vis['subview_y'], vis['subview_w'], vis['subview_h'])
+
 am_subview_list = []
 bg_color = 'black'#'#5cd65c'
 am1 = ui.ScrollView(title='am1', frame=frame_1, background_color = bg_color,\
