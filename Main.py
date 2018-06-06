@@ -197,15 +197,6 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['windchill']['text_color'] = text_color
             if windchill_status != None: status_list.append(windchill_status)
 
-            #STATUS
-            working_status = '\n'.join(status_list)
-            #working_status.append("\n".join(forecast_dict[peroid][day]['data']['status']))
-
-            forecast_dict[peroid][day]['data']['status'] = {}
-            forecast_dict[peroid][day]['data']['status']['title'] = 'Status:'
-            forecast_dict[peroid][day]['data']['status']['value'] = working_status
-            forecast_dict[peroid][day]['data']['status']['text_color'] = regular
-
             if peroid == 'AM':
                 #Astro
                 forecast_dict[peroid][day]['data']['astronomical_twilight'] = {}
@@ -238,6 +229,33 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['sunset_time']['value'] = forecast_dict[peroid][day]['twilight']['sunset_time']
                 forecast_dict[peroid][day]['data']['sunset_time']['text_color'] = regular
 
+                #Civil
+                forecast_dict[peroid][day]['data']['civil_twilight'] = {}
+                forecast_dict[peroid][day]['data']['civil_twilight']['title'] = 'Civil Twilight:'
+                forecast_dict[peroid][day]['data']['civil_twilight']['value'] = forecast_dict[peroid][day]['twilight']['civil_twilight_begin_time']
+                forecast_dict[peroid][day]['data']['civil_twilight']['text_color'] = regular
+
+                #Nautical
+                forecast_dict[peroid][day]['data']['nautical_twilight'] = {}
+                forecast_dict[peroid][day]['data']['nautical_twilight']['title'] = 'Nautical Twilight:'
+                forecast_dict[peroid][day]['data']['nautical_twilight']['value'] = forecast_dict[peroid][day]['twilight']['nautical_twilight_begin_time']
+                forecast_dict[peroid][day]['data']['nautical_twilight']['text_color'] = regular
+
+                #Astro
+                forecast_dict[peroid][day]['data']['astronomical_twilight'] = {}
+                forecast_dict[peroid][day]['data']['astronomical_twilight']['title'] = 'Astro Twilight:'
+                forecast_dict[peroid][day]['data']['astronomical_twilight']['value'] = forecast_dict[peroid][day]['twilight']['astronomical_twilight_begin_time']
+                forecast_dict[peroid][day]['data']['astronomical_twilight']['text_color'] = regular
+
+
+            #STATUS
+            working_status = '\n'.join(status_list)
+            #working_status.append("\n".join(forecast_dict[peroid][day]['data']['status']))
+
+            forecast_dict[peroid][day]['data']['status'] = {}
+            forecast_dict[peroid][day]['data']['status']['title'] = 'Status:'
+            forecast_dict[peroid][day]['data']['status']['value'] = working_status
+            forecast_dict[peroid][day]['data']['status']['text_color'] = regular
     return forecast_dict
 
 def headers(day,timeset,view_name):
@@ -307,6 +325,8 @@ def gen_value_label(c,data,view_name):
     adjusted_label_y = vis['value_label_y'] +( c*(vis['value_label_height']+vis['title_label_margins']) )
     c = c+1
     label_name = "vlabel"+str(view_name)+str(c)
+    if data['title'] = 'Status:' #make status label taller
+        vis['value_label_height'] = vis['value_label_height'] * 4
     label = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['value_label_x'], adjusted_label_y, vis['value_label_width'], vis['value_label_height']))
     label.text_color = data['text_color']
     label.border_width = 0
@@ -385,13 +405,15 @@ vis = vis(w,h)
 view_dict = {}
 
 am_subview_list = []
-am1 = ui.ScrollView(title='am1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-am2 = ui.ScrollView(title='am2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+bg_color = 'light-blue'
+am1 = ui.ScrollView(title='am1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+am2 = ui.ScrollView(title='am2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 am3 = ui.ScrollView(title='am3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
+bg_color = 'blue'
 pm_subview_list = []
 pm1 = ui.ScrollView(title='pm1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'blue', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-pm2 = ui.ScrollView(title='pm2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'blue', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm2 = ui.ScrollView(title='pm2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 pm3 = ui.ScrollView(title='pm3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'blue', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
 am_subview_list.append(am1)
@@ -407,10 +429,6 @@ for x in am_subview_list:
     view_dict[x.title] = x
 for x in pm_subview_list:
     view_dict[x.title] = x
-
-#Compenstation if time is after 5AM, need to display the PM subview instead of tomorrows AM subview
-#Basically cut off one of the AM subviews, and only show two
-
 
 #AM
 for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
@@ -458,15 +476,14 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
 
 if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
     view.remove_subview(view['button_am1']) #remove first button
-    view.remove_subview(view['button_am2']) #remove first button
-    view.remove_subview(view['button_am3']) #remove first button
+    view.remove_subview(view['button_am2']) #remove second button
+    view.remove_subview(view['button_am3']) #remove third button
     view.add_subview(pm1) #add pm subview to first slot
     #move am1 to am2
     #and am 2 to am 3
-    am2.frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h'])
-    am2.title = 'am3'
-     =  #move 2 to 3
-    view_dict['am3'] = view_dict['am2']
+    am2.frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']) #move frame
+    am2.title = 'am3' #change title
+    view_dict['am3'] = view_dict['am2'] #move in dictionary (button uses)
 
     am1.frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h'])
     am1.title = 'am2'
@@ -474,15 +491,15 @@ if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
     pprint(view_dict)
 
     #BUTTONS
-    button = gen_switch_buttons(2,'am2')
+    button = gen_switch_buttons(2,'am2') #generate second button
     button.action = switch_pressed
     view.add_subview(button)
 
-    button = gen_switch_buttons(3,'am3')
+    button = gen_switch_buttons(3,'am3') #generate third button
     button.action = switch_pressed
     view.add_subview(button)
 
-    view.add_subview(am1)
+    view.add_subview(am1) #add newly moved subviews
     view.add_subview(am2)
 
 else:
