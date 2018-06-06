@@ -1,6 +1,8 @@
 import get_data
 import ui
 #import build
+import Image
+import io
 from pprint import pprint
 import datetime
 
@@ -232,7 +234,7 @@ def headers(day,timeset,view_name):
 
     return header
 
-def imageview(day,timeset,view_name):
+def gen_imageview(day,timeset,view_name):
     #Image View
     image_view_name = "imageview_"+str(view_name)
     imageview = ui.ImageView(name=image_view_name, bg_color='transparent', frame=(vis['imageview_x'], vis['imageview_y'], vis['imageview_width'], vis['imageview_height']))
@@ -321,7 +323,7 @@ for working_subview,day in zip(subview_list,forecast_dict['AM']): #for each am d
     header = headers(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(header)
     #timeset_view = timeset_view(n,vis,ui,day,'am')
-    imageview = imageview(forecast_dict['AM'][day],'AM',working_subview)
+    imageview = gen_imageview(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(imageview)
 
     #status_window
