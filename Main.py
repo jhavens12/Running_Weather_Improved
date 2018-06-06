@@ -50,14 +50,14 @@ def vis(w,h):
 
     #Title Labels
     vis['title_label_x'] = vis['side_margin']
-    vis['title_label_y'] = vis['imageview_y']+(vis['imageview_height']/2)
+    vis['title_label_y'] = vis['imageview_y']+(vis['imageview_height']/1.75)
     vis['title_label_width'] = vis['subview_w']-(vis['side_margin']*4)
     vis['title_label_height'] = vis['other_label_height']
     vis['title_label_margins'] = -1
 
     #Value Labels
     vis['value_label_x'] = vis['side_margin'] * 2
-    vis['value_label_y'] = vis['imageview_y'] + (vis['imageview_height']/2) + (vis['other_label_height']/2)
+    vis['value_label_y'] = vis['imageview_y'] + (vis['imageview_height']/1.75) + (vis['other_label_height']/2)
     vis['value_label_width'] = vis['subview_w']-(vis['side_margin']*4)
     vis['value_label_height'] = vis['other_label_height']
     vis['value_label_margins'] = vis['title_label_margins']
@@ -80,7 +80,7 @@ def eval_text_color(value,type):
 
     good = '#5cd65c'
     not_good = '#e60000'
-    okay = "#ff884d"
+    okay = 'black'#"#ff884d"
 
     if type == 'temp':
         if value < 20:
@@ -128,7 +128,7 @@ def eval_text_color(value,type):
 def build_data(forecast_dict):
     for peroid in forecast_dict:
         for day in forecast_dict[peroid]:
-            regular = '#5cd65c'
+            regular = 'black'#'#5cd65c'
 
             forecast_dict[peroid][day]['data'] = {}
             forecast_dict[peroid][day]['data']['status'] = []
@@ -204,6 +204,24 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['astronomical_twilight']['title'] = 'Astro Twilight:'
                 forecast_dict[peroid][day]['data']['astronomical_twilight']['value'] = forecast_dict[peroid][day]['twilight']['astronomical_twilight_begin_time']
                 forecast_dict[peroid][day]['data']['astronomical_twilight']['text_color'] = regular
+
+                #Nautical
+                forecast_dict[peroid][day]['data']['nautical_twilight'] = {}
+                forecast_dict[peroid][day]['data']['nautical_twilight']['title'] = 'Nautical Twilight:'
+                forecast_dict[peroid][day]['data']['nautical_twilight']['value'] = forecast_dict[peroid][day]['twilight']['nautical_twilight_begin_time']
+                forecast_dict[peroid][day]['data']['nautical_twilight']['text_color'] = regular
+
+                #Civil
+                forecast_dict[peroid][day]['data']['civil_twilight'] = {}
+                forecast_dict[peroid][day]['data']['civil__twilight']['title'] = 'Civil Twilight:'
+                forecast_dict[peroid][day]['data']['civil__twilight']['value'] = forecast_dict[peroid][day]['twilight']['civil__twilight_begin_time']
+                forecast_dict[peroid][day]['data']['civil__twilight']['text_color'] = regular
+
+                #sunrise
+                forecast_dict[peroid][day]['data']['sunrise_time'] = {}
+                forecast_dict[peroid][day]['data']['sunrise_time']['title'] = 'Sunrise:'
+                forecast_dict[peroid][day]['data']['sunrise_time']['value'] = forecast_dict[peroid][day]['twilight']['sunrise_time']
+                forecast_dict[peroid][day]['data']['sunrise_time']['text_color'] = regular
 
             if peroid == 'PM':
 
