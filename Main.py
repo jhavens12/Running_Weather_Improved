@@ -440,12 +440,12 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
     working_subview.add_subview(imageview)
 
     for c,item in enumerate(forecast_dict['AM'][day]['data']):
-        if item != 'status':
+        #if item != 'status':
             #title = gen_title_label()
-            value_title = gen_title_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
-            value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
-            working_subview.add_subview(value_title)
-            working_subview.add_subview(value_label)
+        value_title = gen_title_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
+        value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
+        working_subview.add_subview(value_title)
+        working_subview.add_subview(value_label)
 
     #BUTTONS
     #figure out number of view
