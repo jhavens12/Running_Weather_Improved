@@ -92,7 +92,11 @@ def forecast_me():
         forecast_dict['AM'] = {}
 
         for hour in hforecast['hourly_forecast']:
-            if hour['FCTTIME']['hour_padded'] == '05':# or hour['FCTTIME']['hour_padded'] == '17': AM
+            if hour['FCTTIME']['weekday_name'] == 'Saturday' or hour['FCTTIME']['weekday_name'] == 'Sunday':
+                am_hour = '07'
+            else:
+                am_hour = '05'
+            if hour['FCTTIME']['hour_padded'] == am_hour:#'05':# or hour['FCTTIME']['hour_padded'] == '17': AM
 
                 #if hour['FCTTIME']['weekday_name'] == 'Tuesday' or hour['FCTTIME']['weekday_name'] == 'Thursday':# or hour['FCTTIME']['weekday_name'] == 'Saturday':
 
