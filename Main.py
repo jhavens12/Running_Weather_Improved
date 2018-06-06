@@ -267,11 +267,11 @@ def gen_title_label(n,vis,ui,view_name,title_label_list):
         view_name.add_subview(label)
 
 def gen_value_label(c,data,view_name):
-    adjusted_label_y = vis['value_label_y'] +( x*(vis['value_label_height']+vis['title_label_margins']) )
+    adjusted_label_y = vis['value_label_y'] +( c*(vis['value_label_height']+vis['title_label_margins']) )
     c = c+1
     label_name = "vlabel"+str(view_name)+str(c)
     label = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['value_label_x'], adjusted_label_y, vis['value_label_width'], vis['value_label_height']))
-    label.text_color = day['text_color']
+    label.text_color = data['text_color']
     label.border_width = 0
     label.alignment = 3 #1 is center, #0 is left justified
     label.font = ('<system>',vis['value_label_size'])
@@ -285,7 +285,6 @@ view = ui.View(bg_color = 'white', frame = (0,0,w,h)) #main view
 forecast_dict = get_data.forecast_me() #get actual data
 forecast_dict = build_data(forecast_dict) #modify data
 
-pprint(forecast_dict)
 vis = vis(w,h)
 
 #need to create 6 subviews
@@ -319,7 +318,7 @@ for n,day in enumerate(forecast_dict['AM']): #for each am day, build objects to 
 
     for c,data in enumerate(forecast_dict['AM'][day]['data']):
         #title = gen_title_label()
-        value_label = gen_value_label(c,data,working_subview)
+        value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][data],working_subview)
         working_subview.add(value_label)
 
 
