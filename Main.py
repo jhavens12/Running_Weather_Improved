@@ -271,6 +271,7 @@ def gen_value_label(c,data,view_name):
     c = c+1
     label_name = "vlabel"+str(view_name)+str(c)
     label = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['value_label_x'], adjusted_label_y, vis['value_label_width'], vis['value_label_height']))
+    print(data)
     label.text_color = data['text_color']
     label.border_width = 0
     label.alignment = 3 #1 is center, #0 is left justified
@@ -317,9 +318,9 @@ for n,day in enumerate(forecast_dict['AM']): #for each am day, build objects to 
     #title_labels = title_labels()
 
     for c,item in enumerate(forecast_dict['AM'][day]['data']):
-        if data != 'status':
+        if item != 'status':
             #title = gen_title_label()
-            value_label = gen_value_label(c,item,working_subview)
+            value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
             working_subview.add(value_label)
 
 
