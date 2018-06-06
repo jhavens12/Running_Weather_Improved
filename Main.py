@@ -198,8 +198,7 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['sunset_time']['value'] = forecast_dict[peroid][day]['twilight']['sunset_time']
                 forecast_dict[peroid][day]['data']['sunset_time']['text_color'] = regular
 
-            pprint(forecast_dict[peroid][day]['data'])
-            print()
+            return forecast_dict
 
 def headers(n,vis,ui,day,view_name,timeset):
     #Headers
