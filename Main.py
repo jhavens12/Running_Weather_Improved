@@ -155,15 +155,8 @@ def evaluate_conditions(day):
         bg_color = okay
 
     #HUMIDITY
-    if float(day['weather']['humidity']) > 80:
-        bg_color = not_good
-
-        return bg_color
-
     if float(day['weather']['humidity']) > 70:
         bg_color = okay
-
-
     return bg_color
 
 def build_data(forecast_dict):
