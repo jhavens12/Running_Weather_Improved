@@ -394,17 +394,17 @@ pm1 = ui.ScrollView(title='pm1', frame=(vis['subview_x'], vis['subview_y'], vis[
 pm2 = ui.ScrollView(title='pm2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 pm3 = ui.ScrollView(title='pm3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
-view.add_subview(am_1)
-view.add_subview(am_2)
-view.add_subview(am_3)
+view.add_subview(am1)
+view.add_subview(am2)
+view.add_subview(am3)
 
-am_subview_list.append(am_1)
-am_subview_list.append(am_2)
-am_subview_list.append(am_3)
+am_subview_list.append(am1)
+am_subview_list.append(am2)
+am_subview_list.append(am3)
 
-pm_subview_list.append(pm_1)
-pm_subview_list.append(pm_2)
-pm_subview_list.append(pm_3)
+pm_subview_list.append(pm1)
+pm_subview_list.append(pm2)
+pm_subview_list.append(pm3)
 
 #AM
 for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
