@@ -385,26 +385,26 @@ vis = vis(w,h)
 
 #need to create 6 subviews
 am_subview_list = []
-am_1_subview = ui.ScrollView(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-am_2_subview = ui.ScrollView(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-am_3_subview = ui.ScrollView(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+am_1 = ui.ScrollView(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+am_2 = ui.ScrollView(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+am_3 = ui.ScrollView(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
 pm_subview_list = []
-pm_1_subview = ui.ScrollView(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-pm_2_subview = ui.ScrollView(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-pm_3_subview = ui.ScrollView(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm_1 = ui.ScrollView(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm_2 = ui.ScrollView(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm_3 = ui.ScrollView(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
-view.add_subview(am_1_subview)
-view.add_subview(am_2_subview)
-view.add_subview(am_3_subview)
+view.add_subview(am_1)
+view.add_subview(am_2)
+view.add_subview(am_3)
 
-am_subview_list.append(am_1_subview)
-am_subview_list.append(am_2_subview)
-am_subview_list.append(am_3_subview)
+am_subview_list.append(am_1)
+am_subview_list.append(am_2)
+am_subview_list.append(am_3)
 
-pm_subview_list.append(pm_1_subview)
-pm_subview_list.append(pm_2_subview)
-pm_subview_list.append(pm_3_subview)
+pm_subview_list.append(pm_1)
+pm_subview_list.append(pm_2)
+pm_subview_list.append(pm_3)
 
 #AM
 for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
@@ -422,8 +422,11 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
             value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
             working_subview.add_subview(value_title)
             working_subview.add_subview(value_label)
-    d = c + 1
-    button = gen_switch_buttons(d,working_subview) #pass cycle number, view name(data), vis library and ui element
+    #figure out number of view
+    subview_name = working_subview.name
+    view_number = subviewview_name.replace("am","")
+    #pass to button creation
+    button = gen_switch_buttons(view_number,working_subview) #pass cycle number, view name(data), vis library and ui element
     button.action = switch_pressed
     view.add_subview(button) #each view gets a button
 
@@ -443,11 +446,6 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
             value_label = gen_value_label(c,forecast_dict['PM'][day]['data'][item],working_subview)
             working_subview.add_subview(value_title)
             working_subview.add_subview(value_label)
-
-
-
-
-
 
 
 
