@@ -78,9 +78,9 @@ def vis(w,h):
 def eval_text_color(value,type):
     value = float(value)
 
-    good = '#5cd65c'
+    good = '#006d17'
     not_good = '#e60000'
-    okay = 'black'#"#ff884d"
+    okay = '#c15d05'#"#ff884d"
 
     if type == 'temp':
         if value < 20:
@@ -325,8 +325,9 @@ def gen_value_label(c,data,view_name):
     adjusted_label_y = vis['value_label_y'] +( c*(vis['value_label_height']+vis['title_label_margins']) )
     c = c+1
     label_name = "vlabel"+str(view_name)+str(c)
-    if data['title'] == 'Status:' : #make status label taller
-        vis['value_label_height'] = vis['value_label_height'] * 4
+    # if data['title'] == 'Status:' : #make status label taller
+    #     vis['value_label_height'] = vis['value_label_height'] * 4
+    # else:
     label = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['value_label_x'], adjusted_label_y, vis['value_label_width'], vis['value_label_height']))
     label.text_color = data['text_color']
     label.border_width = 0
