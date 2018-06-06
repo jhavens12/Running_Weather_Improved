@@ -284,6 +284,8 @@ view = ui.View(bg_color = 'white', frame = (0,0,w,h)) #main view
 
 forecast_dict = get_data.forecast_me() #get actual data
 forecast_dict = build_data(forecast_dict) #modify data
+
+pprint(forecast_dict)
 vis = vis(w,h)
 
 #need to create 6 subviews
