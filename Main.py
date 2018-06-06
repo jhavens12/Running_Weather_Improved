@@ -203,9 +203,9 @@ def build_data(forecast_dict):
 
     return forecast_dict
 
-def headers(n,vis,ui,day,view_name,timeset):
+def headers(day,timeset,view_name):
     #Headers
-    label_name = "label"+str(n)
+    label_name = "header_"+str(view_name)
     header = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['header_x'], vis['header_y'], vis['header_width'], vis['header_height']))
     if timeset == 'AM':
         header.text_color = 'black'
@@ -291,13 +291,13 @@ vis = vis(w,h)
 
 #need to create 6 subviews
 subview_list = []
-am_1_subview = ui.View(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'black')
-am_2_subview = ui.View(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'black')
-am_3_subview = ui.View(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'black')
+am_1_subview = ui.View(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink')
+am_2_subview = ui.View(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink')
+am_3_subview = ui.View(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink')
 
-pm_1_subview = ui.View(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'black')
-pm_2_subview = ui.View(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'black')
-pm_3_subview = ui.View(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'black')
+pm_1_subview = ui.View(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow')
+pm_2_subview = ui.View(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow')
+pm_3_subview = ui.View(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow')
 
 view.add_subview(am_1_subview)
 view.add_subview(am_2_subview)
@@ -312,7 +312,8 @@ for working_subview,day in zip(subview_list,forecast_dict['AM']): #for each am d
 
     print(working_subview)
 
-    #header = headers(n,vis,ui,day,'AM')
+    header = headers(day,'AM',working_subview)
+    working_subview.add_subview(header)
     #timeset_view = timeset_view(n,vis,ui,day,'am')
     #imageview = imageview(n,vis,ui,day,view_name)
     #title_labels = title_labels()
@@ -324,7 +325,7 @@ for working_subview,day in zip(subview_list,forecast_dict['AM']): #for each am d
             value_title = gen_title_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
             value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
             working_subview.add_subview(value_title)
-            working_subview.add_subview(value_label) 
+            working_subview.add_subview(value_label)
 
 
     #set the subview background somehow
