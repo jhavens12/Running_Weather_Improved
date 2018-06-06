@@ -44,20 +44,20 @@ def vis(w,h):
 
     #Image View
     vis['imageview_x'] = vis['header_x'] + (vis['side_margin'] * 2)
-    vis['imageview_y'] = vis['timesetview_y'] + vis['header_height'] + vis['spacing_margin']
+    vis['imageview_y'] = vis['timesetview_y'] + vis['timesetview_height'] + vis['spacing_margin']
     vis['imageview_width'] = vis['header_width'] - (vis['side_margin'] * 4) #w/3 - (vis['side_margin'] *8)
     vis['imageview_height'] = vis['imageview_width']
 
     #Title Labels
     vis['title_label_x'] = vis['side_margin']
-    vis['title_label_y'] = vis['imageview_y']+(vis['imageview_height']/1.9)
+    vis['title_label_y'] = vis['imageview_y']+(vis['imageview_height'])
     vis['title_label_width'] = vis['subview_w']-(vis['side_margin']*4)
     vis['title_label_height'] = vis['other_label_height']
     vis['title_label_margins'] = -1
 
     #Value Labels
     vis['value_label_x'] = vis['side_margin'] * 2
-    vis['value_label_y'] = vis['imageview_y'] + (vis['imageview_height']/1.9) + (vis['other_label_height']/2)
+    vis['value_label_y'] = vis['imageview_y'] + (vis['imageview_height']) + (vis['other_label_height']/2)
     vis['value_label_width'] = vis['subview_w']-(vis['side_margin']*4)
     vis['value_label_height'] = vis['other_label_height']
     vis['value_label_margins'] = vis['title_label_margins']
@@ -412,9 +412,9 @@ am3 = ui.ScrollView(title='am3', frame=((vis['subview_x']*3) + (vis['subview_w']
 
 bg_color = '#415cf4'
 pm_subview_list = []
-pm1 = ui.ScrollView(title='pm1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'blue', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm1 = ui.ScrollView(title='pm1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 pm2 = ui.ScrollView(title='pm2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-pm3 = ui.ScrollView(title='pm3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'blue', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm3 = ui.ScrollView(title='pm3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
 am_subview_list.append(am1)
 am_subview_list.append(am2)
