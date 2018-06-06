@@ -44,7 +44,7 @@ def vis(w,h):
 
     #Image View
     vis['imageview_x'] = vis['header_x'] + (vis['side_margin'] * 2)
-    vis['imageview_y'] = vis['timesetview_y'] + vis['timesetview_height'] + vis['spacing_margin']
+    vis['imageview_y'] = vis['header_y'] + vis['header_height'] + vis['spacing_margin']
     vis['imageview_width'] = vis['header_width'] - (vis['side_margin'] * 4) #w/3 - (vis['side_margin'] *8)
     vis['imageview_height'] = vis['imageview_width']
 
@@ -406,16 +406,22 @@ vis = vis(w,h)
 view_dict = {}
 
 am_subview_list = []
-bg_color = '#42b3f4'
-am1 = ui.ScrollView(title='am1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-am2 = ui.ScrollView(title='am2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-am3 = ui.ScrollView(title='am3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+bg_color = '#5cd65c'
+am1 = ui.ScrollView(title='am1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color,\
+        corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+am2 = ui.ScrollView(title='am2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, \
+        corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+am3 = ui.ScrollView(title='am3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, \
+        corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
-bg_color = '#415cf4'
+bg_color = '#F8333C'
 pm_subview_list = []
-pm1 = ui.ScrollView(title='pm1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-pm2 = ui.ScrollView(title='pm2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-pm3 = ui.ScrollView(title='pm3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm1 = ui.ScrollView(title='pm1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color,\
+        corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm2 = ui.ScrollView(title='pm2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color,\
+        corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm3 = ui.ScrollView(title='pm3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color,\
+        corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
 am_subview_list.append(am1)
 am_subview_list.append(am2)
@@ -435,7 +441,7 @@ for x in pm_subview_list:
 for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
     header = headers(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(header)
-    timeset_view = gen_timeset_view(forecast_dict['AM'][day],'AM',working_subview)
+    #timeset_view = gen_timeset_view(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(imageview)
@@ -462,7 +468,7 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
 for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each am day, build objects to add to subview and add them
     header = headers(forecast_dict['PM'][day],'PM',working_subview)
     working_subview.add_subview(header)
-    timeset_view = gen_timeset_view(forecast_dict['PM'][day],'AM',working_subview)
+    #timeset_view = gen_timeset_view(forecast_dict['PM'][day],'AM',working_subview)
     working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['PM'][day],'PM',working_subview)
     working_subview.add_subview(imageview)
