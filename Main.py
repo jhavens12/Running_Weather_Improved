@@ -131,7 +131,7 @@ def build_data(forecast_dict):
             regular = 'black'#'#5cd65c'
 
             forecast_dict[peroid][day]['data'] = {}
-            forecast_dict[peroid][day]['data']['status'] = []
+            status_list = []
 
             #CONDITION
             forecast_dict[peroid][day]['data']['condition'] = {}
@@ -145,7 +145,7 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['temperature']['value'] = forecast_dict[peroid][day]['weather']['temp']['english']
             text_color,temperature_status = eval_text_color(forecast_dict[peroid][day]['weather']['temp']['english'],'temp')
             forecast_dict[peroid][day]['data']['temperature']['text_color'] = text_color
-            if temperature_status != None: forecast_dict[peroid][day]['data']['status'].append(temperature_status)
+            if temperature_status != None: status_list.append(temperature_status)
 
             #REAL FEEL
             forecast_dict[peroid][day]['data']['real_feel'] = {}
@@ -153,7 +153,7 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['real_feel']['value'] = forecast_dict[peroid][day]['weather']['feelslike']['english']
             text_color,real_feel_status = eval_text_color(forecast_dict[peroid][day]['weather']['temp']['english'],'temp')
             forecast_dict[peroid][day]['data']['real_feel']['text_color'] = text_color
-            if real_feel_status != None: forecast_dict[peroid][day]['data']['status'].append(real_feel_status)
+            if real_feel_status != None: status_list.append(real_feel_status)
 
             #DEWPOINT
             forecast_dict[peroid][day]['data']['dewpoint'] = {}
@@ -167,7 +167,7 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['pop']['value'] = forecast_dict[peroid][day]['weather']['pop']
             text_color,pop_status = eval_text_color(forecast_dict[peroid][day]['weather']['pop'],'pop')
             forecast_dict[peroid][day]['data']['pop']['text_color'] = text_color
-            if pop_status != None: forecast_dict[peroid][day]['data']['status'].append(pop_status)
+            if pop_status != None: status_list.append(pop_status)
 
             #HUMIDITY
             forecast_dict[peroid][day]['data']['humidity'] = {}
@@ -175,7 +175,7 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['humidity']['value'] = forecast_dict[peroid][day]['weather']['humidity']
             text_color,humidity_status = eval_text_color(forecast_dict[peroid][day]['weather']['humidity'],'humidity')
             forecast_dict[peroid][day]['data']['humidity']['text_color'] = text_color
-            if humidity_status != None: forecast_dict[peroid][day]['data']['status'].append(humidity_status)
+            if humidity_status != None: status_list.append(humidity_status)
 
             #UVI
             forecast_dict[peroid][day]['data']['uvi'] = {}
@@ -195,11 +195,12 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['windchill']['value'] = forecast_dict[peroid][day]['weather']['windchill']['english']
             text_color,windchill_status = eval_text_color(forecast_dict[peroid][day]['weather']['windchill']['english'],'windchill')
             forecast_dict[peroid][day]['data']['windchill']['text_color'] = text_color
-            if windchill_status != None: forecast_dict[peroid][day]['data']['status'].append(windchill_status)
+            if windchill_status != None: status_list.append(windchill_status)
 
             #STATUS
-            working_status = []
-            working_status.append("\n".join(forecast_dict[peroid][day]['data']['status']))
+            working_status = '\n'.join(status_list)
+            #working_status.append("\n".join(forecast_dict[peroid][day]['data']['status']))
+
             forecast_dict[peroid][day]['data']['status'] = {}
             forecast_dict[peroid][day]['data']['status']['title'] = 'Status:'
             forecast_dict[peroid][day]['data']['status']['value'] = working_status
