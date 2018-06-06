@@ -390,9 +390,9 @@ am2 = ui.ScrollView(title='am2', frame=((vis['subview_x']*2) + vis['subview_w'],
 am3 = ui.ScrollView(title='am3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
 pm_subview_list = []
-pm1 = ui.ScrollView(title='pm1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-pm2 = ui.ScrollView(title='pm2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-pm3 = ui.ScrollView(title='pm3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm1 = ui.ScrollView(title='pm1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'blue', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm2 = ui.ScrollView(title='pm2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'blue', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
+pm3 = ui.ScrollView(title='pm3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'blue', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
 am_subview_list.append(am1)
 am_subview_list.append(am2)
@@ -457,11 +457,14 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
             working_subview.add_subview(value_label)
 
 if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
-    view.remove_subview('button_am1')
-    view.add_subview(pm1)
-    #move am1 to am2 and am 2 to am 3 frames
-    am1.frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h'])
+    view.remove_subview(view['button_am1']) #remove first button
+    view.add_subview(pm1) #add pm subview to first slot
+    #move am1 to am2
+    #and am 2 to am 3
     am2.frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h'])
+    am2.title = 'am3'
+    am1.frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h'])
+    am1.title = 'am2'
     view.add_subview(am1)
     view.add_subview(am2)
 
