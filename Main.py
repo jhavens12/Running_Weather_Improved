@@ -28,7 +28,7 @@ def vis(w,h):
     vis['subview_y'] = vis['top_margin']
     vis['subview_x'] = vis['side_margin']
     vis['subview_scroll_size_w'] = vis['subview_w']
-    vis['subview_scroll_size_h'] = vis['subview_h'] * 1.5
+    vis['subview_scroll_size_h'] = vis['subview_h'] * 1.25
 
     #Header
     vis['header_x'] = vis['side_margin'] * 2
@@ -78,7 +78,7 @@ def vis(w,h):
 def eval_text_color(value,type):
     value = float(value)
 
-    good = '#006d17'
+    good = 'black'#'#006d17'
     not_good = '#e60000'
     okay = '#c15d05'#"#ff884d"
 
@@ -97,6 +97,8 @@ def eval_text_color(value,type):
             status = 'Windchill of '+str(value)+' is damn cold'
             return not_good, status
         if value < 20:
+            if value == -9999:
+                return good,None
             status = 'Windchill of '+str(value)+' is too cold'
             return not_good
         else:
@@ -325,10 +327,12 @@ def gen_value_label(c,data,view_name):
     adjusted_label_y = vis['value_label_y'] +( c*(vis['value_label_height']+vis['title_label_margins']) )
     c = c+1
     label_name = "vlabel"+str(view_name)+str(c)
-    # if data['title'] == 'Status:' : #make status label taller
-    #     vis['value_label_height'] = vis['value_label_height'] * 4
-    # else:
-    label = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['value_label_x'], adjusted_label_y, vis['value_label_width'], vis['value_label_height']))
+    if data['title'] == 'Status:' : #make status label taller
+        label_height = vis['value_label_height'] * 4
+        #vis['value_label_height'] = vis['value_label_height'] * 4
+    else:
+        label_height = vis['value_label_height']
+    label = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['value_label_x'], adjusted_label_y, vis['value_label_width'], label_height))
     label.text_color = data['text_color']
     label.border_width = 0
     label.alignment = 3 #1 is center, #0 is left justified
