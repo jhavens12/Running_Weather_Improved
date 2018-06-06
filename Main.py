@@ -333,7 +333,7 @@ def gen_status_label(c,data,view_name):
 
 def gen_switch_buttons(c,view_name):
     #Buttons
-    button_x = vis['header_x'] + vis['side_margin'] + ( ( vis['w_adjusted'] / vis['entry_count'] ) * (c-1)) #has to be dynamic
+    button_x = vis['header_x'] + vis['side_margin'] + ( ( vis['w_adjusted'] / 3 ) * (c-1)) #has to be dynamic
     button_name = "button_"+str(view_name)
     button = ui.Button(name = button_name, bg_color ='white', frame = (button_x, vis['button_y'], vis['button_width'], vis['button_height']))
     button.border_color = 'black'
