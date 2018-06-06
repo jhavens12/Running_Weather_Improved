@@ -23,7 +23,7 @@ def vis(w,h):
     vis['spacing_margin'] = 0
 
     #Subview
-    vis['subview_w'] = (w/3)-(vis['side_margin']*2)
+    vis['subview_w'] = (w-(vis['side_margin']*3)/3#(w/3)-(vis['side_margin']*2)
     vis['subview_h'] = h-(vis['top_margin']*3) #this is whats actually used
     vis['subview_y'] = vis['top_margin']
     vis['subview_x'] = vis['side_margin']
@@ -445,9 +445,9 @@ am_subview_list = []
 bg_color = 'black'#'#5cd65c'
 am1 = ui.ScrollView(title='am1', frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color,\
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-am2 = ui.ScrollView(title='am2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, \
+am2 = ui.ScrollView(title='am2', frame=((vis['subview_x'] + vis['subview_w']), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, \
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-am3 = ui.ScrollView(title='am3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, \
+am3 = ui.ScrollView(title='am3', frame=((vis['subview_x'] + vis['subview_w'])*2, vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = bg_color, \
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
 bg_color = 'black'#'#F8333C'
