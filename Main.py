@@ -446,7 +446,7 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
     header = headers(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(header)
     #timeset_view = gen_timeset_view(forecast_dict['AM'][day],'AM',working_subview)
-    working_subview.add_subview(timeset_view)
+    #working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(imageview)
 
@@ -473,7 +473,7 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
     header = headers(forecast_dict['PM'][day],'PM',working_subview)
     working_subview.add_subview(header)
     #timeset_view = gen_timeset_view(forecast_dict['PM'][day],'AM',working_subview)
-    working_subview.add_subview(timeset_view)
+    #working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['PM'][day],'PM',working_subview)
     working_subview.add_subview(imageview)
 
