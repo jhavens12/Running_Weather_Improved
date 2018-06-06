@@ -394,10 +394,6 @@ pm1 = ui.ScrollView(title='pm1', frame=(vis['subview_x'], vis['subview_y'], vis[
 pm2 = ui.ScrollView(title='pm2', frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 pm3 = ui.ScrollView(title='pm3', frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'yellow', content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
-view.add_subview(am1)
-view.add_subview(am2)
-view.add_subview(am3)
-
 am_subview_list.append(am1)
 am_subview_list.append(am2)
 am_subview_list.append(am3)
@@ -415,9 +411,6 @@ for x in pm_subview_list:
 #Compenstation if time is after 5AM, need to display the PM subview instead of tomorrows AM subview
 #Basically cut off one of the AM subviews, and only show two
 
-if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 : #copy first PM key to AM key in case there is not an AM key to use
-    am_subview_list.remove(am3) #remove third morning
-    am_subview_list = [pm1] + am_subview_list
 
 #AM
 for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
@@ -440,6 +433,7 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
     #figure out number of view
     subview_name = str(working_subview.title)
     view_number = int(subview_name.replace("am",""))
+
     #pass to button creation
     button = gen_switch_buttons(view_number,working_subview.title) #pass cycle number, view name(data), vis library and ui element
     button.action = switch_pressed
@@ -462,6 +456,19 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
             working_subview.add_subview(value_title)
             working_subview.add_subview(value_label)
 
+if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
+    view.remove_subview('button_am1')
+    view.add_subview(pm1)
+    #move am1 to am2 and am 2 to am 3 frames
+    am1.frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h'])
+    am2.frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h'])
+    view.add_subview(am1)
+    view.add_subview(am2)
+
+else:
+    view.add_subview(am1)
+    view.add_subview(am2)
+    view.add_subview(am3)
 
 
 view.present(style='sheet', hide_title_bar=True)
