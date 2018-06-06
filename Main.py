@@ -247,9 +247,9 @@ def gen_imageview(day,timeset,view_name):
 
     return imageview
 
-def timeset_view(n,vis,ui,day,timeset):
+def gen_timeset_view(day,timeset,view_name):
     #Image View
-    image_view_name = "timesetview"+str(n)
+    image_view_name = "timesetview_"+str(view_name)
     imageview = ui.ImageView(name=image_view_name, bg_color='transparent', frame=(vis['timesetview_x'], vis['timesetview_y'], vis['timesetview_width'], vis['timesetview_height']))
     my_image_path = './resources/'+ timeset + ".png"
     my_image = Image.open(my_image_path)
@@ -299,7 +299,7 @@ vis = vis(w,h)
 
 #need to create 6 subviews
 subview_list = []
-am_1_subview = ui.View(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink')
+am_1_subview = ui.View(frame=(vis['subview_x'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink', content_size = vis['subview_w'], (vis['subview_h']*2))
 am_2_subview = ui.View(frame=((vis['subview_x']*2) + vis['subview_w'], vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink')
 am_3_subview = ui.View(frame=((vis['subview_x']*3) + (vis['subview_w']*2), vis['subview_y'], vis['subview_w'], vis['subview_h']), background_color = 'pink')
 
@@ -322,7 +322,8 @@ for working_subview,day in zip(subview_list,forecast_dict['AM']): #for each am d
 
     header = headers(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(header)
-    #timeset_view = timeset_view(n,vis,ui,day,'am')
+    timeset_view = gen_timeset_view(n,vis,ui,day,'am')
+    working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(imageview)
 
