@@ -309,10 +309,10 @@ for n,day in enumerate(forecast_dict['AM']): #for each am day, build objects to 
     working_subview = 'am_'+str(n)+'_subview'
     print(working_subview)
 
-    header = headers(n,vis,ui,day,'AM')
-    timeset_view = timeset_view(n,vis,ui,day,'am')
-    imageview = imageview(n,vis,ui,day,view_name)
-    title_labels = title_labels()
+    #header = headers(n,vis,ui,day,'AM')
+    #timeset_view = timeset_view(n,vis,ui,day,'am')
+    #imageview = imageview(n,vis,ui,day,view_name)
+    #title_labels = title_labels()
 
     for c,data in enumerate(forecast_dict['AM'][day]['data']):
         #title = gen_title_label()
