@@ -66,9 +66,10 @@ def vis(w,h):
 
 def eval_text_color(value,type):
     value = float(value)
-    good = 'good'#'#5cd65c'
-    not_good = 'not_good'#'#e60000'
-    okay = 'okay'#"#ff884d"
+
+    good = '#5cd65c'
+    not_good = '#e60000'
+    okay = "#ff884d"
 
     if type == 'temp':
         if value < 20:
@@ -116,7 +117,7 @@ def eval_text_color(value,type):
 def build_data(forecast_dict):
     for peroid in forecast_dict:
         for day in forecast_dict[peroid]:
-            regular = 'BLACK'
+            regular = '#5cd65c'
 
             forecast_dict[peroid][day]['data'] = {}
             forecast_dict[peroid][day]['data']['status'] = []
