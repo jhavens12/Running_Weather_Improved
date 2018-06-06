@@ -121,6 +121,7 @@ def build_data(forecast_dict):
 
             forecast_dict[peroid][day]['data'] = {}
             forecast_dict[peroid][day]['data']['status'] = []
+            forecast_dict[peroid][day]['data']['status']['text_color'] = regular
 
             #CONDITION
             forecast_dict[peroid][day]['data']['condition'] = {}
