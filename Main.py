@@ -316,10 +316,11 @@ for n,day in enumerate(forecast_dict['AM']): #for each am day, build objects to 
     #imageview = imageview(n,vis,ui,day,view_name)
     #title_labels = title_labels()
 
-    for c,data in enumerate(forecast_dict['AM'][day]['data']):
-        #title = gen_title_label()
-        value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][data],working_subview)
-        working_subview.add(value_label)
+    for c,item in enumerate(forecast_dict['AM'][day]['data']):
+        if data != 'status':
+            #title = gen_title_label()
+            value_label = gen_value_label(c,item,working_subview)
+            working_subview.add(value_label)
 
 
     #set the subview background somehow
