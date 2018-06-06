@@ -4,6 +4,13 @@ import ui
 from pprint import pprint
 import datetime
 
+def pil2ui(ui,imgIn):
+    with io.BytesIO() as bIO:
+        imgIn.save(bIO, 'PNG')
+        imgOut = ui.Image.from_data(bIO.getvalue())
+        del bIO
+    return imgOut
+
 def vis(w,h):
 
     vis = {}
@@ -225,10 +232,9 @@ def headers(day,timeset,view_name):
 
     return header
 
-def imageview(n,vis,ui,day,view_name):
-    #https://www.wunderground.com/weather/api/d/docs?d=resources/phrase-glossary&_ga=2.123754250.1299445518.1522934594-1103271979.1522756403#forecast_description_numbers
+def imageview(day,timeset,view_name):
     #Image View
-    image_view_name = "imageview"+str(n)
+    image_view_name = "imageview_"+str(view_name)
     imageview = ui.ImageView(name=image_view_name, bg_color='transparent', frame=(vis['imageview_x'], vis['imageview_y'], vis['imageview_width'], vis['imageview_height']))
     my_image_path = './resources/mdi/'+ str(day['weather']['fctcode']) + ".png"
     my_image = Image.open(my_image_path)
@@ -315,8 +321,9 @@ for working_subview,day in zip(subview_list,forecast_dict['AM']): #for each am d
     header = headers(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(header)
     #timeset_view = timeset_view(n,vis,ui,day,'am')
-    #imageview = imageview(n,vis,ui,day,view_name)
-    #title_labels = title_labels()
+    imageview = imageview(forecast_dict['AM'][day],'AM',working_subview)
+    working_subview.add_subview(imageview)
+
     #status_window
 
     for c,item in enumerate(forecast_dict['AM'][day]['data']):
