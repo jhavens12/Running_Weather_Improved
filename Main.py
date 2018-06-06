@@ -1,5 +1,5 @@
 import get_data
-#import ui
+import ui
 #import build
 from pprint import pprint
 import datetime
@@ -25,17 +25,17 @@ def vis(w,h):
     vis['header_width'] = vis['subview_w']-(vis['side_margin']*4)
     vis['header_height'] = 70
 
-    #Timeset View
-    vis['timeset_x'] = vis['header_x'] + (vis['side_margin'] * 2)
-    vis['timeset_y'] = vis['header_y'] + vis['header_height'] + vis['spacing_margin']
-    vis['timeset_width'] = vis['header_width'] - (vis['side_margin'] * 4) #w/3 - (vis['side_margin'] *8)
-    vis['timeset_height'] = vis['imageview_width']
-
     #Image View
     vis['imageview_x'] = vis['header_x'] + (vis['side_margin'] * 2)
     vis['imageview_y'] = vis['header_y'] + vis['header_height'] + vis['spacing_margin']
     vis['imageview_width'] = vis['header_width'] - (vis['side_margin'] * 4) #w/3 - (vis['side_margin'] *8)
     vis['imageview_height'] = vis['imageview_width']
+
+    #Timeset View
+    vis['timeset_x'] = vis['header_x'] + (vis['side_margin'] * 2)
+    vis['timeset_y'] = vis['header_y'] + vis['header_height'] + vis['spacing_margin']
+    vis['timeset_width'] = vis['header_width'] - (vis['side_margin'] * 4) #w/3 - (vis['side_margin'] *8)
+    vis['timeset_height'] = vis['imageview_width']
 
     #Title Labels
     vis['title_label_x'] = vis['side_margin']
