@@ -428,7 +428,7 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
     view.add_subview(button) #each view gets a button
 
 #PM
-for working_subview,day in zip(am_subview_list,forecast_dict['PM']): #for each am day, build objects to add to subview and add them
+for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each am day, build objects to add to subview and add them
     header = headers(forecast_dict['PM'][day],'PM',working_subview)
     working_subview.add_subview(header)
     timeset_view = gen_timeset_view(forecast_dict['PM'][day],'AM',working_subview)
