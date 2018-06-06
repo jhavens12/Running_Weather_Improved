@@ -28,7 +28,7 @@ def vis(w,h):
     vis['subview_y'] = vis['top_margin']
     vis['subview_x'] = vis['side_margin']
     vis['subview_scroll_size_w'] = vis['subview_w']
-    vis['subview_scroll_size_h'] = vis['subview_h'] * 1.3
+    vis['subview_scroll_size_h'] = vis['subview_h'] * 1.1
 
     #Header
     vis['header_x'] = vis['side_margin'] * 2
@@ -50,14 +50,14 @@ def vis(w,h):
 
     #Title Labels
     vis['title_label_x'] = vis['side_margin']
-    vis['title_label_y'] = vis['imageview_y']+(vis['imageview_height']/1.75)
+    vis['title_label_y'] = vis['imageview_y']+(vis['imageview_height']/1.9)
     vis['title_label_width'] = vis['subview_w']-(vis['side_margin']*4)
     vis['title_label_height'] = vis['other_label_height']
     vis['title_label_margins'] = -1
 
     #Value Labels
     vis['value_label_x'] = vis['side_margin'] * 2
-    vis['value_label_y'] = vis['imageview_y'] + (vis['imageview_height']/1.75) + (vis['other_label_height']/2)
+    vis['value_label_y'] = vis['imageview_y'] + (vis['imageview_height']/1.9) + (vis['other_label_height']/2)
     vis['value_label_width'] = vis['subview_w']-(vis['side_margin']*4)
     vis['value_label_height'] = vis['other_label_height']
     vis['value_label_margins'] = vis['title_label_margins']
@@ -331,6 +331,50 @@ def gen_status_label(c,data,view_name):
     label.text = str(data['value'])
     return label
 
+def gen_switch_buttons(c,view_name):
+    #Buttons
+    button_x = vis['header_x'] + vis['side_margin'] + ( ( vis['w_adjusted'] / vis['entry_count'] ) * (c-1)) #has to be dynamic
+    button_name = "button_"+str(view_name)
+    button = ui.Button(name = button_name, bg_color ='white', frame = (button_x, vis['button_y'], vis['button_width'], vis['button_height']))
+    button.border_color = 'black'
+    button.tint_color = 'blue'
+    button.border_width = 1
+    button.alignment = 1 #1 is center, 0 is left justified
+    button.font = ('<system>',12)
+    button.number_of_lines = 1
+    button.title = "AM/PM"
+    return button
+
+def switch_pressed(self):
+    #print ("Pressed "+self.name)
+    if "am" in self.name: #passed name like button_AM1
+        #print("Button pressed and AM displayed")
+        view_name = self.name.replace("button_","")
+        view_number = view_name.replace("am","")
+        new_view_name = "PM"+view_number
+        view.remove_subview(view_dict[view_name]) #view_dict contains names as keys and view objects as values
+        view.remove_subview(self) #remove button
+        view.add_subview(view_dict[new_view_name])
+
+        #add back button with PM name
+        button = build.switch_buttons(int(view_number),new_view_name,vis,ui) #pass cycle number, view name(data), vis library and ui element
+        button.action = switch_pressed
+        view.add_subview(button)
+
+    if "pm" in self.name:
+        #print("Button pressed and PM displayed")
+        view_name = self.name.replace("button_","")
+        view_number = view_name.replace("pm","")
+        new_view_name = "AM"+view_number
+        view.remove_subview(view_dict[view_name]) #view_dict contains names as keys and view objects as values
+        view.remove_subview(self) #remove button
+        view.add_subview(view_dict[new_view_name])
+
+        #add back button with PM name
+        button = build.switch_buttons(int(view_number),new_view_name,vis,ui) #pass cycle number, view name(data), vis library and ui element
+        button.action = switch_pressed
+        view.add_subview(button)
+
 w,h = ui.get_screen_size()
 view = ui.View(bg_color = 'white', frame = (0,0,w,h)) #main view
 
@@ -362,6 +406,7 @@ pm_subview_list.append(pm_1_subview)
 pm_subview_list.append(pm_2_subview)
 pm_subview_list.append(pm_3_subview)
 
+#AM
 for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
     header = headers(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(header)
@@ -370,18 +415,35 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
     imageview = gen_imageview(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(imageview)
 
-    #status_window
-
     for c,item in enumerate(forecast_dict['AM'][day]['data']):
-        #if item != 'status':
+        if item != 'status':
             #title = gen_title_label()
-        value_title = gen_title_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
-        value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
-        working_subview.add_subview(value_title)
-        working_subview.add_subview(value_label)
+            value_title = gen_title_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
+            value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
+            working_subview.add_subview(value_title)
+            working_subview.add_subview(value_label)
+    d = c + 1
+    button = gen_switch_buttons(d,working_subview) #pass cycle number, view name(data), vis library and ui element
+    button.action = switch_pressed
+    view.add_subview(button) #each view gets a button
 
+#PM
+for working_subview,day in zip(am_subview_list,forecast_dict['PM']): #for each am day, build objects to add to subview and add them
+    header = headers(forecast_dict['PM'][day],'PM',working_subview)
+    working_subview.add_subview(header)
+    timeset_view = gen_timeset_view(forecast_dict['PM'][day],'AM',working_subview)
+    working_subview.add_subview(timeset_view)
+    imageview = gen_imageview(forecast_dict['PM'][day],'PM',working_subview)
+    working_subview.add_subview(imageview)
 
-    #set the subview background somehow
+    for c,item in enumerate(forecast_dict['PM'][day]['data']):
+        if item != 'status':
+            #title = gen_title_label()
+            value_title = gen_title_label(c,forecast_dict['PM'][day]['data'][item],working_subview)
+            value_label = gen_value_label(c,forecast_dict['PM'][day]['data'][item],working_subview)
+            working_subview.add_subview(value_title)
+            working_subview.add_subview(value_label)
+
 
 
 
