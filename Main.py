@@ -521,7 +521,7 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
     #working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['PM'][day],'PM',working_subview)
     working_subview.add_subview(imageview)
-    bg_color = evaluate_conditions(forecast_dict['AM'][day])
+    bg_color = evaluate_conditions(forecast_dict['PM'][day])
     working_subview.background_color = bg_color
 
     for c,item in enumerate(forecast_dict['PM'][day]['data']):
