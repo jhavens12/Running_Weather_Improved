@@ -412,6 +412,13 @@ for x in am_subview_list:
 for x in pm_subview_list:
     view_dict[x.title] = x
 
+#Compenstation if time is after 5AM, need to display the PM subview instead of tomorrows AM subview
+#Basically cut off one of the AM subviews, and only show two
+
+if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 : #copy first PM key to AM key in case there is not an AM key to use
+    am_subview_list.remove(am3) #remove third morning
+    am_subview_list = [pm1] + am_subview_list
+
 #AM
 for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
     header = headers(forecast_dict['AM'][day],'AM',working_subview)
@@ -428,6 +435,8 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
             value_label = gen_value_label(c,forecast_dict['AM'][day]['data'][item],working_subview)
             working_subview.add_subview(value_title)
             working_subview.add_subview(value_label)
+
+    #BUTTONS
     #figure out number of view
     subview_name = str(working_subview.title)
     view_number = int(subview_name.replace("am",""))
@@ -452,8 +461,6 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
             value_label = gen_value_label(c,forecast_dict['PM'][day]['data'][item],working_subview)
             working_subview.add_subview(value_title)
             working_subview.add_subview(value_label)
-
-
 
 
 
