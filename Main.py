@@ -484,6 +484,10 @@ for x in am_subview_list:
 for x in pm_subview_list:
     view_dict[x.title] = x
 
+print()
+pprint(view_dict)
+print()
+
 #AM
 for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
     header = headers(forecast_dict['AM'][day],'AM',working_subview)
@@ -533,6 +537,9 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
         working_subview.add_subview(value_label)
 
 if datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 17 :
+    print()
+    print('Time is after 5AM and before 5PM')
+    print('Running different time operation')
     view.remove_subview(view['button_am1']) #remove first button
     view.remove_subview(view['button_am2']) #remove second button
     view.remove_subview(view['button_am3']) #remove third button

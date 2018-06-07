@@ -77,8 +77,11 @@ def forecast_me():
     #forecast_dict = {}
     forecast_dict = open_file()
     current_timestamp = datetime.datetime.now()
-    if forecast_dict['timestamp'] < current_timestamp-datetime.timedelta(hours=1):
+    if forecast_dict['timestamp'] < current_timestamp-datetime.timedelta(hours=.5):
+        print("Last data gathered at: "+str(forecast_dict['timestamp']))
         print("Gathering new information")
+        print("Please Wait...")
+        print()
 
         forecast_dict = {} #reset the dictionary
         term = 'hourly10day'
@@ -103,6 +106,7 @@ def forecast_me():
                 temp_date = hour['FCTTIME']['year'] +"-"+ hour['FCTTIME']['mon'] +"-"+ hour['FCTTIME']['mday']
                 temp_time = hour['FCTTIME']['hour_padded'] +":"+ hour['FCTTIME']['min']+":"+"00"
                 date_key = datetime.datetime.strptime(temp_date+" "+temp_time, '%Y-%m-%d %H:%M:%S')
+
                 if date_key < current_timestamp + datetime.timedelta(days=3): #if date is within three days
 
                     forecast_dict['AM'][date_key] = {}
