@@ -434,6 +434,13 @@ w,h = ui.get_screen_size()
 view = ui.View(bg_color = 'white', frame = (0,0,w,h)) #main view
 
 forecast_dict = get_data.forecast_me() #get actual data
+
+am_count = len(forecast_dict['AM'])
+pm_count = len(forecast_dict['PM'])
+print("AM Count: "+str(am_count))
+print("PM Count: "+str(pm_count))
+print()
+
 forecast_dict = build_data(forecast_dict) #modify data
 
 vis = vis(w,h)
