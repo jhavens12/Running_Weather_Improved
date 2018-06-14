@@ -141,30 +141,30 @@ def evaluate_conditions(day):
 
     #STATUS
     #SNOW
-    if (day['weather']['fctcode'] >= 21 or #snowing
-        day['weather']['fctcode'] == 19 or #show showers
-        day['weather']['fctcode'] == 9 or #blowing snow
-        day['weather']['fctcode'] == 16): #flurries
+    if (int(day['weather']['fctcode']) >= 21 or #snowing
+        int(day['weather']['fctcode']) == 19 or #show showers
+        int(day['weather']['fctcode']) == 9 or #blowing snow
+        int(day['weather']['fctcode']) == 16): #flurries
 
         print("SNOW - eval_conditions")
         bg_color = not_good
         return bg_color
 
     #RAIN
-    if (day['weather']['fctcode'] == 11 or #Showers
-        day['weather']['fctcode'] == 13): or #Rain
+    if (int(day['weather']['fctcode']) == 11 or #Showers
+        int(day['weather']['fctcode']) == 13): #Rain
         print("RAIN - eval_conditions")
         bg_color = not_good
         return bg_color
 
-    if (day['weather']['fctcode'] == 14 or #Chance of TStorms
-        day['weather']['fctcode'] == 15): #Thunderstorm
+    if (int(day['weather']['fctcode']) == 14 or #Chance of TStorms
+        int(day['weather']['fctcode']) == 15): #Thunderstorm
         print("TSTORMS - eval_conditions")
         bg_color = not_good
         return bg_color
 
-    if (day['weather']['fctcode'] == 7 or #very hot
-        day['weather']['fctcode'] == 8): #very cold
+    if (int(day['weather']['fctcode']) == 7 or #very hot
+        int(day['weather']['fctcode']) == 8): #very cold
         print("Temp Extremes - eval_conditions")
         bg_color = okay
 
