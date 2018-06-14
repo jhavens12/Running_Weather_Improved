@@ -441,6 +441,17 @@ print("AM Count: "+str(am_count))
 print("PM Count: "+str(pm_count))
 print()
 
+
+while am_count == 0 or pm_count == 0:
+    print("Someone equals 0")
+    os.remove('History.dict')
+    forecast_dict = get_data.forecast_me()
+    am_count = len(forecast_dict['AM'])
+    pm_count = len(forecast_dict['PM'])
+    print("AM Count: "+str(am_count))
+    print("PM Count: "+str(pm_count))
+    print()
+
 forecast_dict = build_data(forecast_dict) #modify data
 
 vis = vis(w,h)
