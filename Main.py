@@ -5,6 +5,7 @@ import Image
 import io
 from pprint import pprint
 import datetime
+import os
 
 def pil2ui(ui,imgIn):
     with io.BytesIO() as bIO:
@@ -137,6 +138,51 @@ def evaluate_conditions(day):
 
     bg_color = good
     current_date = day['time']['weekday_name']+" "+day['time']['civil']
+
+    #STATUS
+    #SNOW
+    if day['weather']['fctcode'] >= 21 or #snowing
+    if day['weather']['fctcode'] == 19 or #show showers
+    if day['weather']['fctcode'] == 9 or #blowing snow
+    if day['weather']['fctcode'] == 16: #flurries
+        print("SNOW - eval_conditions")
+        bg_color = not_good
+        return bg_color
+
+    #RAIN
+    if day['weather']['fctcode'] == 11 or #Showers
+    if day['weather']['fctcode'] == 13: or #Rain
+        print("RAIN - eval_conditions")
+        bg_color = not_good
+        return bg_color
+
+    if day['weather']['fctcode'] == 14 or #Chance of TStorms
+    if day['weather']['fctcode'] == 15: #Thunderstorm
+        print("TSTORMS - eval_conditions")
+        bg_color = not_good
+        return bg_color
+
+    if day['weather']['fctcode'] == 7 or #very hot
+    if day['weather']['fctcode'] == 8: #very cold
+        print("Temp Extremes - eval_conditions")
+        bg_color = okay
+
+    # 7	Very Hot
+    # 8	Very Cold
+
+    # 11	Showers
+    # 13	Rain
+
+    # 14	Chance of a Thunderstorm
+    # 15	Thunderstorm
+
+    # 9	Blowing Snow
+    # 16	Flurries
+    # 19	Snow Showers
+    # 21	Snow
+    # 22	Chace of Ice Pellets
+    # 23	Ice Pellets
+    # 24	Blizzard
 
     #TEMPERATURE
     if float(day['weather']['feelslike']['english']) < 20 or float(day['weather']['feelslike']['english']) > 90:
@@ -495,9 +541,9 @@ for x in am_subview_list:
 for x in pm_subview_list:
     view_dict[x.title] = x
 
-print()
-pprint(view_dict)
-print()
+# print()
+# pprint(view_dict)
+# print()
 
 #AM
 for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
