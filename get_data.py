@@ -47,9 +47,10 @@ def twilight(date_input):
     sunrise_dict = {}
     url = "https://api.sunrise-sunset.org/json?lat="+my_lat+"&lng="+my_long+"&date="+date_input
     try:
+        print("Getting sunrise data...")
         sunrise_data = requests.get(url).json()
     except:
-        print("error getting astro data")
+        print("Error getting sunrise data")
 
     sunrise_dict['astronomical_twilight_begin'] = format_time(date_input,UTC_adjust,sunrise_data['results']['astronomical_twilight_begin'])
     sunrise_dict['astronomical_twilight_begin_time'] = nice_time(sunrise_dict['astronomical_twilight_begin'])
@@ -87,9 +88,10 @@ def forecast_me():
         term = 'hourly10day'
         url = "http://api.wunderground.com/api/"+wu_key+"/"+term+"/q/VT/Essex.json"
         try:
+            print("Getting weather data...")
             hforecast = requests.get(url).json()
         except:
-            print("error getting weather data")
+            print("Error getting weather data")
 
         forecast_dict['PM'] = {}
         forecast_dict['AM'] = {}
