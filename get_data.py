@@ -101,9 +101,9 @@ def forecast_me_2():
             time = datetime.datetime.fromtimestamp(hour.time)
             if calendar.day_name[time.weekday()] == 'Saturday' or calendar.day_name[time.weekday()] == 'Sunday':
             #if hour['FCTTIME']['weekday_name'] == 'Saturday' or hour['FCTTIME']['weekday_name'] == 'Sunday':
-                am_hour = '07'
+                am_hour = '7'
             else:
-                am_hour = '05'
+                am_hour = '5'
 
             if time.hour == am_hour:
                 if time < current_timestamp + datetime.timedelta(days=3): #if date is within three days
