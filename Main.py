@@ -240,7 +240,12 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['real_feel'] = {}
             forecast_dict[peroid][day]['data']['real_feel']['title'] = 'Feels Like:'
             forecast_dict[peroid][day]['data']['real_feel']['value'] = forecast_dict[peroid][day]['weather']['apparentTemperature']#['feelslike']['english']
-            text_color = 'black' #eval_text_color(forecast_dict[peroid][day]['weather']['temp']['english'],'temp')
+            if 'apparentTemperature' in warning_list:
+                text_color = 'red'
+            if 'apparentTemperature' in bad_list:
+                text_color = 'red'
+            else:
+                text_color= 'black'
             forecast_dict[peroid][day]['data']['real_feel']['text_color'] = text_color
 
             #'precipType'
@@ -250,14 +255,18 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['precipType']['value'] = forecast_dict[peroid][day]['weather']['precipType'].title()#capitalize
             except Exception:
                 forecast_dict[peroid][day]['data']['precipType']['value'] = "N/A"
-            text_color= 'black'
             forecast_dict[peroid][day]['data']['precipType']['text_color'] = text_color
 
             #POP
             forecast_dict[peroid][day]['data']['pop'] = {}
             forecast_dict[peroid][day]['data']['pop']['title'] = '% Precipitation:'
             forecast_dict[peroid][day]['data']['pop']['value'] = percent(forecast_dict[peroid][day]['weather']['precipProbability'])#['pop']
-            text_color = 'black'
+            if 'precipProbability' in warning_list:
+                text_color = 'red'
+            if 'precipProbability' in bad_list:
+                text_color = 'red'
+            else:
+                text_color= 'black'
             forecast_dict[peroid][day]['data']['pop']['text_color'] = text_color
 
             #HUMIDITY
