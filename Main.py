@@ -6,6 +6,7 @@ import io
 from pprint import pprint
 import datetime
 import os
+import calendar
 
 def pil2ui(ui,imgIn):
     with io.BytesIO() as bIO:
@@ -382,7 +383,7 @@ def headers(day,timeset,view_name):
     header.alignment = 1 #1 is center, 0 is left justified
     header.font = ('<system-bold>',vis['header_label_size'])
     header.number_of_lines = 3
-    header.text = str(day['time'])#['mon_abbrev']+" "+day['time']['mday']+"\n"+day['time']['weekday_name']+" "+day['time']['civil']
+    header.text = calendar.day_name[day['time'].weekday()]+"\n"+str(day['time'].hour)+":00" #['mon_abbrev']+" "+day['time']['mday']+"\n"+day['time']['weekday_name']+" "+day['time']['civil']
 
     return header
 
