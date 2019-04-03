@@ -136,78 +136,74 @@ def eval_text_color(value,type):
 def evaluate_conditions(day):
 
     good = '#5cd65c'
-    not_good = '#F8333C'
-    okay = "#FCAB10"
-
+    bad = '#F8333C'
+    warning = "#FCAB10"
     bg_color = good
-    current_date = day['time']['weekday_name']+" "+day['time']['civil']
 
-    #STATUS
-    #SNOW
-    if (int(day['weather']['fctcode']) >= 21 or #snowing
-        int(day['weather']['fctcode']) == 19 or #show showers
-        int(day['weather']['fctcode']) == 9 or #blowing snow
-        int(day['weather']['fctcode']) == 16): #flurries
+    #percent of rain chance
+    if float(day['weather']['precipProbability']) > 60:
+        bg_color = bad
+        return bg_color #return on bad
+    if float(day['weather']['precipProbability']) > 30:
+        bg_color = warning
 
-        print("SNOW - eval_conditions")
-        bg_color = not_good
-        return bg_color
+    #temperature
+    if float(day['weather']['apparentTemperature']) < 9 or float(day['weather']['apparentTemperature']) > 90:
+        bg_color = bad
+        return bg_color #return on bad
+    if float(day['weather']['apparentTemperature']) < 20 or float(day['weather']['apparentTemperature']) > 80:
+        bg_color = warning
 
-    #RAIN
-    if (int(day['weather']['fctcode']) == 11 or #Showers
-        int(day['weather']['fctcode']) == 13): #Rain
-        print("RAIN - eval_conditions")
-        bg_color = not_good
-        return bg_color
-
-    if (int(day['weather']['fctcode']) == 14 or #Chance of TStorms
-        int(day['weather']['fctcode']) == 15): #Thunderstorm
-        print("TSTORMS - eval_conditions")
-        bg_color = not_good
-        return bg_color
-
-    if (int(day['weather']['fctcode']) == 7 or #very hot
-        int(day['weather']['fctcode']) == 8): #very cold
-        print("Temp Extremes - eval_conditions")
-        bg_color = okay
-
-    # 7	Very Hot
-    # 8	Very Cold
-
-    # 11	Showers
-    # 13	Rain
-
-    # 14	Chance of a Thunderstorm
-    # 15	Thunderstorm
-
-    # 9	Blowing Snow
-    # 16	Flurries
-    # 19	Snow Showers
-    # 21	Snow
-    # 22	Chace of Ice Pellets
-    # 23	Ice Pellets
-    # 24	Blizzard
-
-    #TEMPERATURE
-    if float(day['weather']['feelslike']['english']) < 20 or float(day['weather']['feelslike']['english']) > 90:
-        bg_color = not_good
-        return bg_color #temp that extreme sends it
-
-    if float(day['weather']['feelslike']['english']) < 20 or float(day['weather']['feelslike']['english']) > 90:
-        bg_color = okay
-
-    #PERCIPITATION
-    if float(day['weather']['pop']) > 50:
-        bg_color = not_good
-        return bg_color
-
-    if float(day['weather']['pop']) > 25:
-        bg_color = okay
-
-    #HUMIDITY
-    if float(day['weather']['humidity']) > 70:
-        bg_color = okay
     return bg_color
+    # #STATUS
+    # #SNOW
+    # if (int(day['weather']['fctcode']) >= 21 or #snowing
+    #     int(day['weather']['fctcode']) == 19 or #show showers
+    #     int(day['weather']['fctcode']) == 9 or #blowing snow
+    #     int(day['weather']['fctcode']) == 16): #flurries
+    #
+    #     print("SNOW - eval_conditions")
+    #     bg_color = not_good
+    #     return bg_color
+    #
+    # #RAIN
+    # if (int(day['weather']['fctcode']) == 11 or #Showers
+    #     int(day['weather']['fctcode']) == 13): #Rain
+    #     print("RAIN - eval_conditions")
+    #     bg_color = not_good
+    #     return bg_color
+    #
+    # if (int(day['weather']['fctcode']) == 14 or #Chance of TStorms
+    #     int(day['weather']['fctcode']) == 15): #Thunderstorm
+    #     print("TSTORMS - eval_conditions")
+    #     bg_color = not_good
+    #     return bg_color
+    #
+    # if (int(day['weather']['fctcode']) == 7 or #very hot
+    #     int(day['weather']['fctcode']) == 8): #very cold
+    #     print("Temp Extremes - eval_conditions")
+    #     bg_color = okay
+    #
+    #
+    # #TEMPERATURE
+    # if float(day['weather']['feelslike']['english']) < 20 or float(day['weather']['feelslike']['english']) > 90:
+    #     bg_color = not_good
+    #     return bg_color #temp that extreme sends it
+    #
+    # if float(day['weather']['feelslike']['english']) < 20 or float(day['weather']['feelslike']['english']) > 90:
+    #     bg_color = okay
+    #
+    # #PERCIPITATION
+    # if float(day['weather']['pop']) > 50:
+    #     bg_color = not_good
+    #     return bg_color
+    #
+    # if float(day['weather']['pop']) > 25:
+    #     bg_color = okay
+    #
+    # #HUMIDITY
+    # if float(day['weather']['humidity']) > 70:
+    #     bg_color = okay
 
 def build_data(forecast_dict):
     for peroid in forecast_dict:
@@ -604,7 +600,7 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
     #working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(imageview)
-    bg_color = '#5cd65c' #evaluate_conditions(forecast_dict['AM'][day])
+    bg_color = evaluate_conditions(forecast_dict['AM'][day])
     working_subview.background_color = bg_color
 
     for c,item in enumerate(forecast_dict['AM'][day]['data']):
@@ -633,7 +629,7 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
     #working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['PM'][day],'PM',working_subview)
     working_subview.add_subview(imageview)
-    bg_color = '#5cd65c' #evaluate_conditions(forecast_dict['PM'][day])
+    bg_color = evaluate_conditions(forecast_dict['PM'][day])
     working_subview.background_color = bg_color
 
     for c,item in enumerate(forecast_dict['PM'][day]['data']):
