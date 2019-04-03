@@ -151,8 +151,7 @@ def evaluate_conditions(day):
     if float(day['weather']['precipProbability']) > 30:
         warning_list.append('precipProbability')
         bg_color = warning
-
-    #temperature
+    #apparent temperature
     if float(day['weather']['apparentTemperature']) < 9 or float(day['weather']['apparentTemperature']) > 90:
         bg_color = bad
         bad_list.append('apparentTemperature')
@@ -160,57 +159,41 @@ def evaluate_conditions(day):
     if float(day['weather']['apparentTemperature']) < 20 or float(day['weather']['apparentTemperature']) > 80:
         warning_list.append('apparentTemperature')
         bg_color = warning
+    #temperature
+    if float(day['weather']['temperature']) < 9 or float(day['weather']['temperature']) > 90:
+        bg_color = bad
+        bad_list.append('temperature')
+        return bg_color, bad_list, warning_list #return on bad
+    if float(day['weather']['temperature']) < 20 or float(day['weather']['temperature']) > 80:
+        warning_list.append('temperature')
+        bg_color = warning
+    #windSpeed
+    if float(day['weather']['windSpeed']) > 20:
+        bg_color = bad
+        bad_list.append('windSpeed')
+        return bg_color, bad_list, warning_list #return on bad
+    if float(day['weather']['windSpeed']) > 10:
+        warning_list.append('windSpeed')
+        bg_color = warning
+    #windGust
+    if float(day['weather']['windGust']) > 20:
+        bg_color = bad
+        bad_list.append('windGust')
+        return bg_color, bad_list, warning_list #return on bad
+    if float(day['weather']['windGust']) > 10:
+        warning_list.append('windGust')
+        bg_color = warning
+    #Humidity
+    if float(day['weather']['humidity']) > 99:
+        bg_color = bad
+        bad_list.append('humidity')
+        return bg_color, bad_list, warning_list #return on bad
+    if float(day['weather']['humidity']) > 85:
+        warning_list.append('humidity')
+        bg_color = warning
 
     return bg_color, bad_list, warning_list
-    # #STATUS
-    # #SNOW
-    # if (int(day['weather']['fctcode']) >= 21 or #snowing
-    #     int(day['weather']['fctcode']) == 19 or #show showers
-    #     int(day['weather']['fctcode']) == 9 or #blowing snow
-    #     int(day['weather']['fctcode']) == 16): #flurries
-    #
-    #     print("SNOW - eval_conditions")
-    #     bg_color = not_good
-    #     return bg_color
-    #
-    # #RAIN
-    # if (int(day['weather']['fctcode']) == 11 or #Showers
-    #     int(day['weather']['fctcode']) == 13): #Rain
-    #     print("RAIN - eval_conditions")
-    #     bg_color = not_good
-    #     return bg_color
-    #
-    # if (int(day['weather']['fctcode']) == 14 or #Chance of TStorms
-    #     int(day['weather']['fctcode']) == 15): #Thunderstorm
-    #     print("TSTORMS - eval_conditions")
-    #     bg_color = not_good
-    #     return bg_color
-    #
-    # if (int(day['weather']['fctcode']) == 7 or #very hot
-    #     int(day['weather']['fctcode']) == 8): #very cold
-    #     print("Temp Extremes - eval_conditions")
-    #     bg_color = okay
-    #
-    #
-    # #TEMPERATURE
-    # if float(day['weather']['feelslike']['english']) < 20 or float(day['weather']['feelslike']['english']) > 90:
-    #     bg_color = not_good
-    #     return bg_color #temp that extreme sends it
-    #
-    # if float(day['weather']['feelslike']['english']) < 20 or float(day['weather']['feelslike']['english']) > 90:
-    #     bg_color = okay
-    #
-    # #PERCIPITATION
-    # if float(day['weather']['pop']) > 50:
-    #     bg_color = not_good
-    #     return bg_color
-    #
-    # if float(day['weather']['pop']) > 25:
-    #     bg_color = okay
-    #
-    # #HUMIDITY
-    # if float(day['weather']['humidity']) > 70:
-    #     bg_color = okay
+
 
 def build_data(forecast_dict):
     for peroid in forecast_dict:
@@ -237,8 +220,12 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['temperature'] = {}
             forecast_dict[peroid][day]['data']['temperature']['title'] = 'Temp:'
             forecast_dict[peroid][day]['data']['temperature']['value'] = forecast_dict[peroid][day]['weather']['temperature']#['temp']['english']
-            text_color = 'black' #eval_text_color(forecast_dict[peroid][day]['weather']['temp']['english'],'temp')
-            forecast_dict[peroid][day]['data']['temperature']['text_color'] = text_color
+            text_color= 'black'
+            if 'temperature' in warning_list:
+                text_color = 'red'
+            if 'temperature' in bad_list:
+                text_color = 'red'
+            forecast_dict[peroid][day]['data']['real_feel']['text_color'] = text_color            forecast_dict[peroid][day]['data']['temperature']['text_color'] = text_color
 
             #REAL FEEL
             forecast_dict[peroid][day]['data']['real_feel'] = {}
@@ -297,13 +284,23 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['windspeed'] = {}
             forecast_dict[peroid][day]['data']['windspeed']['title'] = 'Wind Speed:'
             forecast_dict[peroid][day]['data']['windspeed']['value'] = forecast_dict[peroid][day]['weather']['windSpeed']#['wspd']['english']
-            forecast_dict[peroid][day]['data']['windspeed']['text_color'] = regular
+            text_color= 'black'
+            if 'windSpeed' in warning_list:
+                text_color = 'red'
+            if 'windSpeed' in bad_list:
+                text_color = 'red'
+            forecast_dict[peroid][day]['data']['windspeed']['text_color'] = text_color
 
             #WINDGUST
             forecast_dict[peroid][day]['data']['windGust'] = {}
             forecast_dict[peroid][day]['data']['windGust']['title'] = 'Wind Gust:'
             forecast_dict[peroid][day]['data']['windGust']['value'] = forecast_dict[peroid][day]['weather']['windGust']#['wspd']['english']
-            forecast_dict[peroid][day]['data']['windGust']['text_color'] = regular
+            text_color= 'black'
+            if 'windGust' in warning_list:
+                text_color = 'red'
+            if 'windGust' in bad_list:
+                text_color = 'red'
+            forecast_dict[peroid][day]['data']['windGust']['text_color'] = text_color
 
             #'cloudCover'
             forecast_dict[peroid][day]['data']['cloudCover'] = {}
