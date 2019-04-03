@@ -260,16 +260,16 @@ def build_data(forecast_dict):
             #HUMIDITY
             forecast_dict[peroid][day]['data']['humidity'] = {}
             forecast_dict[peroid][day]['data']['humidity']['title'] = 'Humidity:'
-            forecast_dict[peroid][day]['data']['humidity']['value'] = forecast_dict[peroid][day]['weather']['humidity']
+            forecast_dict[peroid][day]['data']['humidity']['value'] = percent(forecast_dict[peroid][day]['weather']['humidity'])
             text_color,humidity_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['humidity'],'humidity')
             forecast_dict[peroid][day]['data']['humidity']['text_color'] = text_color
             if humidity_status != None: status_list.append(humidity_status)
 
-            #DEWPOINT
-            forecast_dict[peroid][day]['data']['dewpoint'] = {}
-            forecast_dict[peroid][day]['data']['dewpoint']['title'] = 'Dewpoint:'
-            forecast_dict[peroid][day]['data']['dewpoint']['value'] = forecast_dict[peroid][day]['weather']['dewPoint']#['dewpoint']['english']
-            forecast_dict[peroid][day]['data']['dewpoint']['text_color'] = regular
+            # #DEWPOINT
+            # forecast_dict[peroid][day]['data']['dewpoint'] = {}
+            # forecast_dict[peroid][day]['data']['dewpoint']['title'] = 'Dewpoint:'
+            # forecast_dict[peroid][day]['data']['dewpoint']['value'] = forecast_dict[peroid][day]['weather']['dewPoint']#['dewpoint']['english']
+            # forecast_dict[peroid][day]['data']['dewpoint']['text_color'] = regular
 
             #UVI
             forecast_dict[peroid][day]['data']['uvi'] = {}
@@ -279,15 +279,21 @@ def build_data(forecast_dict):
 
             #WINDSPEED
             forecast_dict[peroid][day]['data']['windspeed'] = {}
-            forecast_dict[peroid][day]['data']['windspeed']['title'] = 'Windspeed:'
+            forecast_dict[peroid][day]['data']['windspeed']['title'] = 'Wind Speed:'
             forecast_dict[peroid][day]['data']['windspeed']['value'] = forecast_dict[peroid][day]['weather']['windSpeed']#['wspd']['english']
             forecast_dict[peroid][day]['data']['windspeed']['text_color'] = regular
+
+            #WINDGUST
+            forecast_dict[peroid][day]['data']['windGust'] = {}
+            forecast_dict[peroid][day]['data']['windGust']['title'] = 'Wind Gust:'
+            forecast_dict[peroid][day]['data']['windGust']['value'] = forecast_dict[peroid][day]['weather']['windGust']#['wspd']['english']
+            forecast_dict[peroid][day]['data']['windGust']['text_color'] = regular
 
             #'cloudCover'
             forecast_dict[peroid][day]['data']['cloudCover'] = {}
             forecast_dict[peroid][day]['data']['cloudCover']['title'] = 'Cloud Cover:'
             try:
-                forecast_dict[peroid][day]['data']['cloudCover']['value'] = "{0:.0%}".format(forecast_dict[peroid][day]['weather']['cloudCover'])#.title()#capitalize
+                forecast_dict[peroid][day]['data']['cloudCover']['value'] = percent(forecast_dict[peroid][day]['weather']['cloudCover'])#.title()#capitalize
             except Exception:
                 forecast_dict[peroid][day]['data']['cloudCover']['value'] = "N/A"
             text_color,pop_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['pop'],'pop')
