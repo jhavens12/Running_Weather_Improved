@@ -280,13 +280,23 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['windspeed']['value'] = forecast_dict[peroid][day]['weather']['windSpeed']#['wspd']['english']
             forecast_dict[peroid][day]['data']['windspeed']['text_color'] = regular
 
-            #WINDCHILL
-            forecast_dict[peroid][day]['data']['windchill'] = {}
-            forecast_dict[peroid][day]['data']['windchill']['title'] = 'Windchill:'
-            forecast_dict[peroid][day]['data']['windchill']['value'] = forecast_dict[peroid][day]['weather']['apparentTemperature']
-            text_color,windchill_status = 'black', None# eval_text_color(forecast_dict[peroid][day]['weather']['windchill']['english'],'windchill')
-            forecast_dict[peroid][day]['data']['windchill']['text_color'] = text_color
-            if windchill_status != None: status_list.append(windchill_status)
+            #'cloudCover'
+            forecast_dict[peroid][day]['data']['cloudCover'] = {}
+            forecast_dict[peroid][day]['data']['cloudCover']['title'] = 'Cloud Cover:'
+            try:
+                forecast_dict[peroid][day]['data']['cloudCover']['value'] = forecast_dict[peroid][day]['weather']['cloudCover']#.title()#capitalize
+            except Exception:
+                forecast_dict[peroid][day]['data']['cloudCover']['value'] = "N/A"
+            text_color,pop_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['pop'],'pop')
+            forecast_dict[peroid][day]['data']['cloudCover']['text_color'] = text_color
+
+            # #WINDCHILL
+            # forecast_dict[peroid][day]['data']['windchill'] = {}
+            # forecast_dict[peroid][day]['data']['windchill']['title'] = 'Windchill:'
+            # forecast_dict[peroid][day]['data']['windchill']['value'] = forecast_dict[peroid][day]['weather']['apparentTemperature']
+            # text_color,windchill_status = 'black', None# eval_text_color(forecast_dict[peroid][day]['weather']['windchill']['english'],'windchill')
+            # forecast_dict[peroid][day]['data']['windchill']['text_color'] = text_color
+            # if windchill_status != None: status_list.append(windchill_status)
 
             if peroid == 'AM':
                 #Astro
