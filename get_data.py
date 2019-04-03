@@ -99,7 +99,13 @@ def forecast_me_2():
         current_timestamp = datetime.datetime.now()
         for hour in boston.hourly:
             time = datetime.datetime.fromtimestamp(hour.time)
-            if time.hour == 5:
+            if calendar.day_name[time.weekday()] == 'Saturday' or calendar.day_name[time.weekday()] == 'Sunday':
+            #if hour['FCTTIME']['weekday_name'] == 'Saturday' or hour['FCTTIME']['weekday_name'] == 'Sunday':
+                am_hour = '07'
+            else:
+                am_hour = '05'
+
+            if time.hour == am_hour:
                 if time < current_timestamp + datetime.timedelta(days=3): #if date is within three days
                     forecast_dict['AM'][time] = {}
                     forecast_dict['AM'][time]['twilight'] = twilight(time.strftime('%Y-%m-%d'))
