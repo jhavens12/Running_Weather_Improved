@@ -284,7 +284,7 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['cloudCover'] = {}
             forecast_dict[peroid][day]['data']['cloudCover']['title'] = 'Cloud Cover:'
             try:
-                forecast_dict[peroid][day]['data']['cloudCover']['value'] = forecast_dict[peroid][day]['weather']['cloudCover']#.title()#capitalize
+                forecast_dict[peroid][day]['data']['cloudCover']['value'] = "{0:.0%}".format(1./forecast_dict[peroid][day]['weather']['cloudCover'])#.title()#capitalize
             except Exception:
                 forecast_dict[peroid][day]['data']['cloudCover']['value'] = "N/A"
             text_color,pop_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['pop'],'pop')
