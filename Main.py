@@ -137,7 +137,7 @@ def eval_text_color(value,type):
 def evaluate_conditions(day):
 
     good = '#5cd65c'
-    bad = '#F8333C'
+    bad = '#f47f84'#'#F8333C'
     warning = "#FCAB10"
     bg_color = good
     warning_list = []
