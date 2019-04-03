@@ -176,11 +176,11 @@ def evaluate_conditions(day):
         warning_list.append('windSpeed')
         bg_color = warning
     #windGust
-    if float(day['weather']['windGust']) > 20:
+    if float(day['weather']['windGust']) > 40:
         bg_color = bad
         bad_list.append('windGust')
         return bg_color, bad_list, warning_list #return on bad
-    if float(day['weather']['windGust']) > 10:
+    if float(day['weather']['windGust']) > 20:
         warning_list.append('windGust')
         bg_color = warning
     #Humidity
