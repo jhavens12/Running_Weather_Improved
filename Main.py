@@ -214,6 +214,9 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data'] = {}
             status_list = []
 
+            #BG and text eval
+            forecast_dict[peroid][day]['bg_color']= evaluate_conditions(forecast_dict[peroid][day])
+
             #CONDITION
             forecast_dict[peroid][day]['data']['condition'] = {}
             forecast_dict[peroid][day]['data']['condition']['title'] = 'Condition:'
@@ -362,6 +365,7 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['status']['title'] = '' #'Status:'
             forecast_dict[peroid][day]['data']['status']['value'] = working_status
             forecast_dict[peroid][day]['data']['status']['text_color'] = regular
+
 
     return forecast_dict
 
@@ -601,7 +605,7 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
     #working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(imageview)
-    bg_color = evaluate_conditions(forecast_dict['AM'][day])
+    bg_color = forecast_dict['AM'][day]['bg_color']#evaluate_conditions(forecast_dict['AM'][day])
     working_subview.background_color = bg_color
 
     for c,item in enumerate(forecast_dict['AM'][day]['data']):
@@ -630,7 +634,7 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
     #working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['PM'][day],'PM',working_subview)
     working_subview.add_subview(imageview)
-    bg_color = evaluate_conditions(forecast_dict['PM'][day])
+    bg_color = forecast_dict['PM'][day]['bg_color']#evaluate_conditions(forecast_dict['PM'][day])
     working_subview.background_color = bg_color
 
     for c,item in enumerate(forecast_dict['PM'][day]['data']):
