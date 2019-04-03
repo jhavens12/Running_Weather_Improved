@@ -551,7 +551,11 @@ def switch_pressed(self):
 w,h = ui.get_screen_size()
 view = ui.View(bg_color = 'white', frame = (0,0,w,h)) #main view
 
-forecast_dict = get_data.forecast_me_2() #get actual data
+try:
+    forecast_dict = get_data.forecast_me_2() #get actual data
+except Exception:
+    os.remove("History.dict")
+    "REMOVE DICTIONARY"
 
 am_count = len(forecast_dict['AM'])
 pm_count = len(forecast_dict['PM'])
