@@ -180,7 +180,7 @@ def evaluate_conditions(day):
         bg_color = bad
         bad_list.append('windGust')
         return bg_color, bad_list, warning_list #return on bad
-    if float(day['weather']['windGust']) > 20:
+    if float(day['weather']['windGust']) > 30:
         warning_list.append('windGust')
         bg_color = warning
     #Humidity
@@ -370,7 +370,10 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['astronomical_twilight']['value'] = forecast_dict[peroid][day]['twilight']['astronomical_twilight_begin_time']
                 forecast_dict[peroid][day]['data']['astronomical_twilight']['text_color'] = regular
 
-
+            #Brightness
+            forecast_dict[peroid][day]['data']['brightness'] = {}
+            forecast_dict[peroid][day]['data']['uvi']['title'] = 'Test'
+            forecast_dict[peroid][day]['data']['uvi']['text_color'] = regular
             #STATUS - bottom of the view
             # working_status = '\n'.join(status_list)
             # #working_status.append("\n".join(forecast_dict[peroid][day]['data']['status']))
