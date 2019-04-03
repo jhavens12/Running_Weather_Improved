@@ -244,9 +244,9 @@ def build_data(forecast_dict):
 
             #'precipType'
             forecast_dict[peroid][day]['data']['precipType'] = {}
-            forecast_dict[peroid][day]['data']['precipType']['title'] = '% Precipitation:'
+            forecast_dict[peroid][day]['data']['precipType']['title'] = 'Precip Type:'
             try:
-                forecast_dict[peroid][day]['data']['precipType']['value'] = forecast_dict[peroid][day]['weather']['precipType']#['pop']
+                forecast_dict[peroid][day]['data']['precipType']['value'] = forecast_dict[peroid][day]['weather']['precipType'].title()#capitalize
             except Exception:
                 forecast_dict[peroid][day]['data']['precipType']['value'] = "N/A"
             text_color,pop_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['pop'],'pop')
