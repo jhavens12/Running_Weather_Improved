@@ -385,7 +385,7 @@ def gen_imageview(day,timeset,view_name):
     #header.text_color = 'white'
     #header.tint_color = 'black'
     header.corner_radius = 15
-    header.border_width = 5
+    header.border_width = 0
     header.alignment = 1 #1 is center, 0 is left justified
     header.font = ('<system-bold>',vis['header_label_size'])
     header.number_of_lines = 3
@@ -542,11 +542,11 @@ frame_3 = (vis['subview_x']*3 + vis['subview_w']*2, vis['subview_y'], vis['subvi
 
 am_subview_list = []
 bg_color = 'black'#'#5cd65c'
-am1 = ui.ScrollView(title='am1', frame=frame_1, background_color = bg_color,\
+am1 = ui.View(title='am1', frame=frame_1, background_color = bg_color,\
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-am2 = ui.ScrollView(title='am2', frame=frame_2, background_color = bg_color, \
+am2 = ui.View(title='am2', frame=frame_2, background_color = bg_color, \
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-am3 = ui.ScrollView(title='am3', frame=frame_3, background_color = bg_color, \
+am3 = ui.View(title='am3', frame=frame_3, background_color = bg_color, \
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
 bg_color = 'black'#'#F8333C'
