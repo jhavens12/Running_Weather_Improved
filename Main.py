@@ -242,6 +242,16 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['dewpoint']['value'] = forecast_dict[peroid][day]['weather']['dewPoint']#['dewpoint']['english']
             forecast_dict[peroid][day]['data']['dewpoint']['text_color'] = regular
 
+            #'precipType'
+            forecast_dict[peroid][day]['data']['precipType'] = {}
+            forecast_dict[peroid][day]['data']['precipType']['title'] = '% Precipitation:'
+            try:
+                forecast_dict[peroid][day]['data']['precipType']['value'] = forecast_dict[peroid][day]['weather']['precipType']#['pop']
+            except Exception:
+                forecast_dict[peroid][day]['data']['precipType']['value'] = "N/A"
+            text_color,pop_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['pop'],'pop')
+            forecast_dict[peroid][day]['data']['precipType']['text_color'] = text_color
+
             #POP
             forecast_dict[peroid][day]['data']['pop'] = {}
             forecast_dict[peroid][day]['data']['pop']['title'] = '% Precipitation:'
