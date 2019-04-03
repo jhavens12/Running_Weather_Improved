@@ -555,7 +555,9 @@ try:
     forecast_dict = get_data.forecast_me_2() #get actual data
 except Exception:
     os.remove("History.dict")
-    "REMOVE DICTIONARY"
+    print("Removing old dictionary file..."
+    print("Trying again...")
+    forecast_dict = get_data.forecast_me_2() #get actual data
 
 am_count = len(forecast_dict['AM'])
 pm_count = len(forecast_dict['PM'])
