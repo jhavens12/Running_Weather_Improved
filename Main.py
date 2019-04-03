@@ -374,7 +374,7 @@ def headers(day,timeset,view_name):
 def gen_imageview(day,timeset,view_name):
     #Headers
     label_name = "header_"+str(view_name)
-    header = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['header_x'], vis['header_y'], vis['header_width'], vis['header_height']))
+    header = ui.Label(name = label_name, bg_color ='transparent', frame=(vis['imageview_x'], vis['imageview_y'], vis['imageview_width'], vis['imageview_height']))
     if timeset == 'AM':
         header.text_color = 'black'
         header.border_color = 'black'
