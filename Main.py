@@ -372,9 +372,9 @@ def build_data(forecast_dict):
 
             #Brightness
             forecast_dict[peroid][day]['data']['brightness'] = {}
-            forecast_dict[peroid][day]['data']['uvi']['title'] = 'Brightness:'
-            forecast_dict[peroid][day]['data']['uvi']['value] = 'Test'
-            forecast_dict[peroid][day]['data']['uvi']['text_color'] = regular
+            forecast_dict[peroid][day]['data']['brightness']['title'] = 'Brightness:'
+            forecast_dict[peroid][day]['data']['brightness']['value] = 'Test'
+            forecast_dict[peroid][day]['data']['brightness']['text_color'] = regular
             #STATUS - bottom of the view
             # working_status = '\n'.join(status_list)
             # #working_status.append("\n".join(forecast_dict[peroid][day]['data']['status']))
