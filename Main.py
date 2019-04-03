@@ -339,14 +339,14 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['astronomical_twilight']['text_color'] = regular
 
 
-            #STATUS
+            #STATUS - bottom of the view
             working_status = '\n'.join(status_list)
             #working_status.append("\n".join(forecast_dict[peroid][day]['data']['status']))
-
             forecast_dict[peroid][day]['data']['status'] = {}
-            forecast_dict[peroid][day]['data']['status']['title'] = 'Status:'
+            forecast_dict[peroid][day]['data']['status']['title'] = '' #'Status:'
             forecast_dict[peroid][day]['data']['status']['value'] = working_status
             forecast_dict[peroid][day]['data']['status']['text_color'] = regular
+
     return forecast_dict
 
 def headers(day,timeset,view_name):
@@ -551,11 +551,11 @@ am3 = ui.View(title='am3', frame=frame_3, background_color = bg_color, \
 
 bg_color = 'black'#'#F8333C'
 pm_subview_list = []
-pm1 = ui.ScrollView(title='pm1', frame=frame_1, background_color = bg_color,\
+pm1 = ui.View(title='pm1', frame=frame_1, background_color = bg_color,\
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-pm2 = ui.ScrollView(title='pm2', frame=frame_2, background_color = bg_color,\
+pm2 = ui.View(title='pm2', frame=frame_2, background_color = bg_color,\
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
-pm3 = ui.ScrollView(title='pm3', frame=frame_3, background_color = bg_color,\
+pm3 = ui.View(title='pm3', frame=frame_3, background_color = bg_color,\
         corner_radius = 10, content_size = (vis['subview_scroll_size_w'], vis['subview_scroll_size_h']))
 
 am_subview_list.append(am1)
