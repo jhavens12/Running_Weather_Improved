@@ -236,12 +236,6 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['real_feel']['text_color'] = text_color
             if real_feel_status != None: status_list.append(real_feel_status)
 
-            #DEWPOINT
-            forecast_dict[peroid][day]['data']['dewpoint'] = {}
-            forecast_dict[peroid][day]['data']['dewpoint']['title'] = 'Dewpoint:'
-            forecast_dict[peroid][day]['data']['dewpoint']['value'] = forecast_dict[peroid][day]['weather']['dewPoint']#['dewpoint']['english']
-            forecast_dict[peroid][day]['data']['dewpoint']['text_color'] = regular
-
             #'precipType'
             forecast_dict[peroid][day]['data']['precipType'] = {}
             forecast_dict[peroid][day]['data']['precipType']['title'] = 'Precip Type:'
@@ -267,6 +261,12 @@ def build_data(forecast_dict):
             text_color,humidity_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['humidity'],'humidity')
             forecast_dict[peroid][day]['data']['humidity']['text_color'] = text_color
             if humidity_status != None: status_list.append(humidity_status)
+
+            #DEWPOINT
+            forecast_dict[peroid][day]['data']['dewpoint'] = {}
+            forecast_dict[peroid][day]['data']['dewpoint']['title'] = 'Dewpoint:'
+            forecast_dict[peroid][day]['data']['dewpoint']['value'] = forecast_dict[peroid][day]['weather']['dewPoint']#['dewpoint']['english']
+            forecast_dict[peroid][day]['data']['dewpoint']['text_color'] = regular
 
             #UVI
             forecast_dict[peroid][day]['data']['uvi'] = {}
@@ -372,15 +372,34 @@ def headers(day,timeset,view_name):
     return header
 
 def gen_imageview(day,timeset,view_name):
-    #Image View
-    image_view_name = "imageview_"+str(view_name)
-    imageview = ui.ImageView(name=image_view_name, bg_color='transparent', frame=(vis['imageview_x'], vis['imageview_y'], vis['imageview_width'], vis['imageview_height']))
-    #my_image_path = './resources/mdi/'+ str(day['weather']['fctcode']) + ".png"
-    #my_image = Image.open(my_image_path)
-    #imageview.image = pil2ui(ui,my_image)
+    #Headers
+    label_name = "imageview_"+str(view_name)
+    header = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['header_x'], vis['header_y'], vis['header_width'], vis['header_height']))
+    if timeset == 'AM':
+        header.text_color = 'black'
+        header.border_color = 'black'
+    if timeset == 'PM':
+        header.text_color = 'white'
+        header.border_color = 'white'
+    #header.border_color = 'white'
+    #header.text_color = 'white'
+    #header.tint_color = 'black'
+    header.corner_radius = 15
+    header.border_width = 5
+    header.alignment = 1 #1 is center, 0 is left justified
+    header.font = ('<system-bold>',vis['header_label_size'])
+    header.number_of_lines = 3
+    header.text = str(day['weather']['summary'])#['mon_abbrev']+" "+day['time']['mday']+"\n"+day['time']['weekday_name']+" "+day['time']['civil']
 
-    #imageview.border_width = 1
-    imageview.border_color = "grey"
+    #Image View
+    # image_view_name = "imageview_"+str(view_name)
+    # imageview = ui.ImageView(name=image_view_name, bg_color='transparent', frame=(vis['imageview_x'], vis['imageview_y'], vis['imageview_width'], vis['imageview_height']))
+    # #my_image_path = './resources/mdi/'+ str(day['weather']['fctcode']) + ".png"
+    # #my_image = Image.open(my_image_path)
+    # #imageview.image = pil2ui(ui,my_image)
+    #
+    # #imageview.border_width = 1
+    # imageview.border_color = "grey"
 
     return imageview
 
