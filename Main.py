@@ -217,36 +217,36 @@ def build_data(forecast_dict):
             #CONDITION
             forecast_dict[peroid][day]['data']['condition'] = {}
             forecast_dict[peroid][day]['data']['condition']['title'] = 'Condition:'
-            forecast_dict[peroid][day]['data']['condition']['value'] = forecast_dict[peroid][day]['weather']['condition']
+            forecast_dict[peroid][day]['data']['condition']['value'] = forecast_dict[peroid][day]['weather']['summary']#['condition']
             forecast_dict[peroid][day]['data']['condition']['text_color'] = regular
 
             #TEMPERATURE
             forecast_dict[peroid][day]['data']['temperature'] = {}
             forecast_dict[peroid][day]['data']['temperature']['title'] = 'Temp:'
-            forecast_dict[peroid][day]['data']['temperature']['value'] = forecast_dict[peroid][day]['weather']['temp']['english']
-            text_color,temperature_status = eval_text_color(forecast_dict[peroid][day]['weather']['temp']['english'],'temp')
+            forecast_dict[peroid][day]['data']['temperature']['value'] = forecast_dict[peroid][day]['weather']['temperature']#['temp']['english']
+            text_color,temperature_status = 'black',None #eval_text_color(forecast_dict[peroid][day]['weather']['temp']['english'],'temp')
             forecast_dict[peroid][day]['data']['temperature']['text_color'] = text_color
             if temperature_status != None: status_list.append(temperature_status)
 
             #REAL FEEL
             forecast_dict[peroid][day]['data']['real_feel'] = {}
             forecast_dict[peroid][day]['data']['real_feel']['title'] = 'Feels Like:'
-            forecast_dict[peroid][day]['data']['real_feel']['value'] = forecast_dict[peroid][day]['weather']['feelslike']['english']
-            text_color,real_feel_status = eval_text_color(forecast_dict[peroid][day]['weather']['temp']['english'],'temp')
+            forecast_dict[peroid][day]['data']['real_feel']['value'] = forecast_dict[peroid][day]['weather']['apparentTemperature']#['feelslike']['english']
+            text_color,real_feel_status = 'black',None #eval_text_color(forecast_dict[peroid][day]['weather']['temp']['english'],'temp')
             forecast_dict[peroid][day]['data']['real_feel']['text_color'] = text_color
             if real_feel_status != None: status_list.append(real_feel_status)
 
             #DEWPOINT
             forecast_dict[peroid][day]['data']['dewpoint'] = {}
             forecast_dict[peroid][day]['data']['dewpoint']['title'] = 'Dewpoint:'
-            forecast_dict[peroid][day]['data']['dewpoint']['value'] = forecast_dict[peroid][day]['weather']['dewpoint']['english']
+            forecast_dict[peroid][day]['data']['dewpoint']['value'] = forecast_dict[peroid][day]['weather']['dewPoint']#['dewpoint']['english']
             forecast_dict[peroid][day]['data']['dewpoint']['text_color'] = regular
 
             #POP
             forecast_dict[peroid][day]['data']['pop'] = {}
             forecast_dict[peroid][day]['data']['pop']['title'] = '% Precipitation:'
-            forecast_dict[peroid][day]['data']['pop']['value'] = forecast_dict[peroid][day]['weather']['pop']
-            text_color,pop_status = eval_text_color(forecast_dict[peroid][day]['weather']['pop'],'pop')
+            forecast_dict[peroid][day]['data']['pop']['value'] = forecast_dict[peroid][day]['weather']['precipProbability']#['pop']
+            text_color,pop_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['pop'],'pop')
             forecast_dict[peroid][day]['data']['pop']['text_color'] = text_color
             if pop_status != None: status_list.append(pop_status)
 
@@ -254,27 +254,27 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['humidity'] = {}
             forecast_dict[peroid][day]['data']['humidity']['title'] = 'Humidity:'
             forecast_dict[peroid][day]['data']['humidity']['value'] = forecast_dict[peroid][day]['weather']['humidity']
-            text_color,humidity_status = eval_text_color(forecast_dict[peroid][day]['weather']['humidity'],'humidity')
+            text_color,humidity_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['humidity'],'humidity')
             forecast_dict[peroid][day]['data']['humidity']['text_color'] = text_color
             if humidity_status != None: status_list.append(humidity_status)
 
             #UVI
             forecast_dict[peroid][day]['data']['uvi'] = {}
             forecast_dict[peroid][day]['data']['uvi']['title'] = 'UV Index:'
-            forecast_dict[peroid][day]['data']['uvi']['value'] = forecast_dict[peroid][day]['weather']['uvi']
+            forecast_dict[peroid][day]['data']['uvi']['value'] = forecast_dict[peroid][day]['weather']['uvIndex']
             forecast_dict[peroid][day]['data']['uvi']['text_color'] = regular
 
             #WINDSPEED
             forecast_dict[peroid][day]['data']['windspeed'] = {}
             forecast_dict[peroid][day]['data']['windspeed']['title'] = 'Windspeed:'
-            forecast_dict[peroid][day]['data']['windspeed']['value'] = forecast_dict[peroid][day]['weather']['wspd']['english']
+            forecast_dict[peroid][day]['data']['windspeed']['value'] = forecast_dict[peroid][day]['weather']['windSpeed']#['wspd']['english']
             forecast_dict[peroid][day]['data']['windspeed']['text_color'] = regular
 
             #WINDCHILL
             forecast_dict[peroid][day]['data']['windchill'] = {}
             forecast_dict[peroid][day]['data']['windchill']['title'] = 'Windchill:'
-            forecast_dict[peroid][day]['data']['windchill']['value'] = forecast_dict[peroid][day]['weather']['windchill']['english']
-            text_color,windchill_status = eval_text_color(forecast_dict[peroid][day]['weather']['windchill']['english'],'windchill')
+            forecast_dict[peroid][day]['data']['windchill']['value'] = forecast_dict[peroid][day]['weather']['apparentTemperature']
+            text_color,windchill_status = 'black', None# eval_text_color(forecast_dict[peroid][day]['weather']['windchill']['english'],'windchill')
             forecast_dict[peroid][day]['data']['windchill']['text_color'] = text_color
             if windchill_status != None: status_list.append(windchill_status)
 
@@ -357,7 +357,7 @@ def headers(day,timeset,view_name):
     header.alignment = 1 #1 is center, 0 is left justified
     header.font = ('<system-bold>',vis['header_label_size'])
     header.number_of_lines = 3
-    header.text = day['time']['mon_abbrev']+" "+day['time']['mday']+"\n"+day['time']['weekday_name']+" "+day['time']['civil']
+    header.text = day['time']#['mon_abbrev']+" "+day['time']['mday']+"\n"+day['time']['weekday_name']+" "+day['time']['civil']
 
     return header
 
@@ -365,9 +365,9 @@ def gen_imageview(day,timeset,view_name):
     #Image View
     image_view_name = "imageview_"+str(view_name)
     imageview = ui.ImageView(name=image_view_name, bg_color='transparent', frame=(vis['imageview_x'], vis['imageview_y'], vis['imageview_width'], vis['imageview_height']))
-    my_image_path = './resources/mdi/'+ str(day['weather']['fctcode']) + ".png"
-    my_image = Image.open(my_image_path)
-    imageview.image = pil2ui(ui,my_image)
+    #my_image_path = './resources/mdi/'+ str(day['weather']['fctcode']) + ".png"
+    #my_image = Image.open(my_image_path)
+    #imageview.image = pil2ui(ui,my_image)
 
     #imageview.border_width = 1
     imageview.border_color = "grey"
@@ -480,7 +480,7 @@ def switch_pressed(self):
 w,h = ui.get_screen_size()
 view = ui.View(bg_color = 'white', frame = (0,0,w,h)) #main view
 
-forecast_dict = get_data.forecast_me() #get actual data
+forecast_dict = get_data.forecast_me_2() #get actual data
 
 am_count = len(forecast_dict['AM'])
 pm_count = len(forecast_dict['PM'])
@@ -554,7 +554,7 @@ for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each a
     #working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['AM'][day],'AM',working_subview)
     working_subview.add_subview(imageview)
-    bg_color = evaluate_conditions(forecast_dict['AM'][day])
+    bg_color = '#5cd65c' #evaluate_conditions(forecast_dict['AM'][day])
     working_subview.background_color = bg_color
 
     for c,item in enumerate(forecast_dict['AM'][day]['data']):
@@ -583,7 +583,7 @@ for working_subview,day in zip(pm_subview_list,forecast_dict['PM']): #for each a
     #working_subview.add_subview(timeset_view)
     imageview = gen_imageview(forecast_dict['PM'][day],'PM',working_subview)
     working_subview.add_subview(imageview)
-    bg_color = evaluate_conditions(forecast_dict['PM'][day])
+    bg_color = '#5cd65c' #evaluate_conditions(forecast_dict['PM'][day])
     working_subview.background_color = bg_color
 
     for c,item in enumerate(forecast_dict['PM'][day]['data']):
