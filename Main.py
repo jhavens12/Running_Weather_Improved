@@ -215,7 +215,7 @@ def build_data(forecast_dict):
             status_list = []
 
             #BG and text eval
-            forecast_dict[peroid][day]['bg_color']= evaluate_conditions(forecast_dict[peroid][day])
+            forecast_dict[peroid][day]['bg_color'] = evaluate_conditions(forecast_dict[peroid][day])
 
             #CONDITION
             forecast_dict[peroid][day]['data']['condition'] = {}
@@ -387,7 +387,7 @@ def headers(day,timeset,view_name):
     header.alignment = 1 #1 is center, 0 is left justified
     header.font = ('<system-bold>',vis['header_label_size'])
     header.number_of_lines = 3
-    header.text = calendar.day_name[day['time'].weekday()]+"\n"+str(day['time'].hour)+":00" #['mon_abbrev']+" "+day['time']['mday']+"\n"+day['time']['weekday_name']+" "+day['time']['civil']
+    header.text = calendar.day_name[day['time'].weekday()]+"\n"+str(day['time'].hour)+":00\n"+timeset #['mon_abbrev']+" "+day['time']['mday']+"\n"+day['time']['weekday_name']+" "+day['time']['civil']
 
     return header
 
