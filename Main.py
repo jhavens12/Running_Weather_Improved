@@ -259,6 +259,7 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['precipType']['value'] = forecast_dict[peroid][day]['weather']['precipType'].title()#capitalize
             except Exception:
                 forecast_dict[peroid][day]['data']['precipType']['value'] = "N/A"
+            text_color= 'black'
             forecast_dict[peroid][day]['data']['precipType']['text_color'] = text_color
 
             #POP
