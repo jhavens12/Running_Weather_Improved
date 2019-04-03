@@ -252,7 +252,7 @@ def build_data(forecast_dict):
             #POP
             forecast_dict[peroid][day]['data']['pop'] = {}
             forecast_dict[peroid][day]['data']['pop']['title'] = '% Precipitation:'
-            forecast_dict[peroid][day]['data']['pop']['value'] = forecast_dict[peroid][day]['weather']['precipProbability']#['pop']
+            forecast_dict[peroid][day]['data']['pop']['value'] = percent(forecast_dict[peroid][day]['weather']['precipProbability'])#['pop']
             text_color,pop_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['pop'],'pop')
             forecast_dict[peroid][day]['data']['pop']['text_color'] = text_color
             if pop_status != None: status_list.append(pop_status)
