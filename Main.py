@@ -19,7 +19,7 @@ def vis(w,h):
     vis = {}
     vis['side_margin'] = 3
     vis['w_adjusted'] = w-vis['side_margin']
-    vis['top_margin'] = 20
+    vis['top_margin'] = 30
     vis['other_label_height'] = 32
     vis['spacing_margin'] = 0
 
@@ -65,7 +65,7 @@ def vis(w,h):
 
     #Buttons
     vis['button_height'] = 32 #above button_y
-    vis['button_y'] = h - vis['button_height'] - 5 #view height minus button height plus some
+    vis['button_y'] = h - vis['button_height'] - 15 #view height minus button height plus some
     vis['button_width'] = vis['header_width']
 
     #Text Size?
@@ -357,7 +357,7 @@ def headers(day,timeset,view_name):
     header.alignment = 1 #1 is center, 0 is left justified
     header.font = ('<system-bold>',vis['header_label_size'])
     header.number_of_lines = 3
-    header.text = day['time']#['mon_abbrev']+" "+day['time']['mday']+"\n"+day['time']['weekday_name']+" "+day['time']['civil']
+    header.text = str(day['time'])#['mon_abbrev']+" "+day['time']['mday']+"\n"+day['time']['weekday_name']+" "+day['time']['civil']
 
     return header
 
