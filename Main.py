@@ -225,7 +225,7 @@ def build_data(forecast_dict):
                 text_color = 'red'
             if 'temperature' in bad_list:
                 text_color = 'red'
-            forecast_dict[peroid][day]['data']['real_feel']['text_color'] = text_color
+            forecast_dict[peroid][day]['data']['temperature']['text_color'] = text_color
 
             #REAL FEEL
             forecast_dict[peroid][day]['data']['real_feel'] = {}
