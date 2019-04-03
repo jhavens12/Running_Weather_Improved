@@ -214,11 +214,11 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data'] = {}
             status_list = []
 
-            #CONDITION
-            forecast_dict[peroid][day]['data']['condition'] = {}
-            forecast_dict[peroid][day]['data']['condition']['title'] = 'Condition:'
-            forecast_dict[peroid][day]['data']['condition']['value'] = forecast_dict[peroid][day]['weather']['summary']#['condition']
-            forecast_dict[peroid][day]['data']['condition']['text_color'] = regular
+            # #CONDITION
+            # forecast_dict[peroid][day]['data']['condition'] = {}
+            # forecast_dict[peroid][day]['data']['condition']['title'] = 'Condition:'
+            # forecast_dict[peroid][day]['data']['condition']['value'] = forecast_dict[peroid][day]['weather']['summary']#['condition']
+            # forecast_dict[peroid][day]['data']['condition']['text_color'] = regular
 
             #TEMPERATURE
             forecast_dict[peroid][day]['data']['temperature'] = {}
@@ -241,6 +241,12 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['dewpoint']['title'] = 'Dewpoint:'
             forecast_dict[peroid][day]['data']['dewpoint']['value'] = forecast_dict[peroid][day]['weather']['dewPoint']#['dewpoint']['english']
             forecast_dict[peroid][day]['data']['dewpoint']['text_color'] = regular
+
+            #Precip type
+            forecast_dict[peroid][day]['data']['precipType'] = {}
+            forecast_dict[peroid][day]['data']['precipType']['title'] = 'Precip Type:'
+            forecast_dict[peroid][day]['data']['precipType']['value'] = forecast_dict[peroid][day]['weather']['precipType']#['pop']
+            forecast_dict[peroid][day]['data']['precipType']['text_color'] = text_color
 
             #POP
             forecast_dict[peroid][day]['data']['pop'] = {}
