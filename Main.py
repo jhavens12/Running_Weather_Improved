@@ -140,22 +140,28 @@ def evaluate_conditions(day):
     bad = '#F8333C'
     warning = "#FCAB10"
     bg_color = good
+    warning_list = []
+    bad_list = []
 
     #percent of rain chance
     if float(day['weather']['precipProbability']) > 60:
         bg_color = bad
-        return bg_color #return on bad
+        bad_list.append('precipProbability') #add to bad list
+        return bg_color, bad_list, warning_list #return on bad
     if float(day['weather']['precipProbability']) > 30:
+        warning_list.append('precipProbability')
         bg_color = warning
 
     #temperature
     if float(day['weather']['apparentTemperature']) < 9 or float(day['weather']['apparentTemperature']) > 90:
         bg_color = bad
-        return bg_color #return on bad
+        bad_list.append('apparentTemperature')
+        return bg_color, bad_list, warning_list #return on bad
     if float(day['weather']['apparentTemperature']) < 20 or float(day['weather']['apparentTemperature']) > 80:
+        warning_list.append('apparentTemperature')
         bg_color = warning
 
-    return bg_color
+    return bg_color, bad_list, warning_list
     # #STATUS
     # #SNOW
     # if (int(day['weather']['fctcode']) >= 21 or #snowing
@@ -212,10 +218,10 @@ def build_data(forecast_dict):
             regular = 'black'#'#5cd65c'
 
             forecast_dict[peroid][day]['data'] = {}
-            status_list = []
+
 
             #BG and text eval
-            forecast_dict[peroid][day]['bg_color'] = evaluate_conditions(forecast_dict[peroid][day])
+            forecast_dict[peroid][day]['bg_color'],bad_list,warning_list = evaluate_conditions(forecast_dict[peroid][day])
 
             #CONDITION
             forecast_dict[peroid][day]['data']['condition'] = {}
@@ -227,17 +233,15 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['temperature'] = {}
             forecast_dict[peroid][day]['data']['temperature']['title'] = 'Temp:'
             forecast_dict[peroid][day]['data']['temperature']['value'] = forecast_dict[peroid][day]['weather']['temperature']#['temp']['english']
-            text_color,temperature_status = 'black',None #eval_text_color(forecast_dict[peroid][day]['weather']['temp']['english'],'temp')
+            text_color = 'black' #eval_text_color(forecast_dict[peroid][day]['weather']['temp']['english'],'temp')
             forecast_dict[peroid][day]['data']['temperature']['text_color'] = text_color
-            if temperature_status != None: status_list.append(temperature_status)
 
             #REAL FEEL
             forecast_dict[peroid][day]['data']['real_feel'] = {}
             forecast_dict[peroid][day]['data']['real_feel']['title'] = 'Feels Like:'
             forecast_dict[peroid][day]['data']['real_feel']['value'] = forecast_dict[peroid][day]['weather']['apparentTemperature']#['feelslike']['english']
-            text_color,real_feel_status = 'black',None #eval_text_color(forecast_dict[peroid][day]['weather']['temp']['english'],'temp')
+            text_color = 'black' #eval_text_color(forecast_dict[peroid][day]['weather']['temp']['english'],'temp')
             forecast_dict[peroid][day]['data']['real_feel']['text_color'] = text_color
-            if real_feel_status != None: status_list.append(real_feel_status)
 
             #'precipType'
             forecast_dict[peroid][day]['data']['precipType'] = {}
@@ -246,24 +250,22 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['precipType']['value'] = forecast_dict[peroid][day]['weather']['precipType'].title()#capitalize
             except Exception:
                 forecast_dict[peroid][day]['data']['precipType']['value'] = "N/A"
-            text_color,pop_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['pop'],'pop')
+            text_color= 'black'
             forecast_dict[peroid][day]['data']['precipType']['text_color'] = text_color
 
             #POP
             forecast_dict[peroid][day]['data']['pop'] = {}
             forecast_dict[peroid][day]['data']['pop']['title'] = '% Precipitation:'
             forecast_dict[peroid][day]['data']['pop']['value'] = percent(forecast_dict[peroid][day]['weather']['precipProbability'])#['pop']
-            text_color,pop_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['pop'],'pop')
+            text_color = 'black'
             forecast_dict[peroid][day]['data']['pop']['text_color'] = text_color
-            if pop_status != None: status_list.append(pop_status)
 
             #HUMIDITY
             forecast_dict[peroid][day]['data']['humidity'] = {}
             forecast_dict[peroid][day]['data']['humidity']['title'] = 'Humidity:'
             forecast_dict[peroid][day]['data']['humidity']['value'] = percent(forecast_dict[peroid][day]['weather']['humidity'])
-            text_color,humidity_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['humidity'],'humidity')
+            text_color = 'black' #eval_text_color(forecast_dict[peroid][day]['weather']['humidity'],'humidity')
             forecast_dict[peroid][day]['data']['humidity']['text_color'] = text_color
-            if humidity_status != None: status_list.append(humidity_status)
 
             # #DEWPOINT
             # forecast_dict[peroid][day]['data']['dewpoint'] = {}
@@ -296,7 +298,7 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['cloudCover']['value'] = percent(forecast_dict[peroid][day]['weather']['cloudCover'])#.title()#capitalize
             except Exception:
                 forecast_dict[peroid][day]['data']['cloudCover']['value'] = "N/A"
-            text_color,pop_status = 'black', None #eval_text_color(forecast_dict[peroid][day]['weather']['pop'],'pop')
+            text_color = 'black'
             forecast_dict[peroid][day]['data']['cloudCover']['text_color'] = text_color
 
             # #WINDCHILL
@@ -359,12 +361,12 @@ def build_data(forecast_dict):
 
 
             #STATUS - bottom of the view
-            working_status = '\n'.join(status_list)
-            #working_status.append("\n".join(forecast_dict[peroid][day]['data']['status']))
-            forecast_dict[peroid][day]['data']['status'] = {}
-            forecast_dict[peroid][day]['data']['status']['title'] = '' #'Status:'
-            forecast_dict[peroid][day]['data']['status']['value'] = working_status
-            forecast_dict[peroid][day]['data']['status']['text_color'] = regular
+            # working_status = '\n'.join(status_list)
+            # #working_status.append("\n".join(forecast_dict[peroid][day]['data']['status']))
+            # forecast_dict[peroid][day]['data']['status'] = {}
+            # forecast_dict[peroid][day]['data']['status']['title'] = '' #'Status:'
+            # forecast_dict[peroid][day]['data']['status']['value'] = working_status
+            # forecast_dict[peroid][day]['data']['status']['text_color'] = regular
 
 
     return forecast_dict
@@ -376,9 +378,11 @@ def headers(day,timeset,view_name):
     if timeset == 'AM':
         header.text_color = 'black'
         header.border_color = 'black'
+        timeset = 'Morning'
     if timeset == 'PM':
         header.text_color = 'white'
         header.border_color = 'white'
+        timeset = 'Afternoon'
     #header.border_color = 'white'
     #header.text_color = 'white'
     #header.tint_color = 'black'
