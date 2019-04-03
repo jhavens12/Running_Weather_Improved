@@ -223,6 +223,10 @@ def build_data(forecast_dict):
             #BG and text eval
             forecast_dict[peroid][day]['bg_color'],bad_list,warning_list = evaluate_conditions(forecast_dict[peroid][day])
 
+            print("Warning:")
+            print(warning_list)
+            print("Bad:")
+            print(bad_list)
             #CONDITION
             forecast_dict[peroid][day]['data']['condition'] = {}
             forecast_dict[peroid][day]['data']['condition']['title'] = 'Condition:'
