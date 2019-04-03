@@ -373,7 +373,7 @@ def headers(day,timeset,view_name):
 
 def gen_imageview(day,timeset,view_name):
     #Headers
-    label_name = "imageview_"+str(view_name)
+    label_name = "header_"+str(view_name)
     header = ui.Label(name = label_name, bg_color ='transparent', frame = (vis['header_x'], vis['header_y'], vis['header_width'], vis['header_height']))
     if timeset == 'AM':
         header.text_color = 'black'
@@ -391,6 +391,7 @@ def gen_imageview(day,timeset,view_name):
     header.number_of_lines = 3
     header.text = str(day['weather']['summary'])#['mon_abbrev']+" "+day['time']['mday']+"\n"+day['time']['weekday_name']+" "+day['time']['civil']
 
+    return header
     #Image View
     # image_view_name = "imageview_"+str(view_name)
     # imageview = ui.ImageView(name=image_view_name, bg_color='transparent', frame=(vis['imageview_x'], vis['imageview_y'], vis['imageview_width'], vis['imageview_height']))
@@ -401,7 +402,7 @@ def gen_imageview(day,timeset,view_name):
     # #imageview.border_width = 1
     # imageview.border_color = "grey"
 
-    return imageview
+    #return imageview
 
 def gen_timeset_view(day,timeset,view_name):
     #Image View
