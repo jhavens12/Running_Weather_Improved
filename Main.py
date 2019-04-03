@@ -25,7 +25,7 @@ def vis(w,h):
 
     #Subview
     vis['subview_w'] = (w-(vis['side_margin']*4))/3#(w/3)-(vis['side_margin']*2)
-    vis['subview_h'] = h-(vis['top_margin']*2) #this is whats actually used
+    vis['subview_h'] = h-(vis['top_margin']*2.75) #this is whats actually used
     vis['subview_y'] = vis['top_margin']
     vis['subview_x'] = vis['side_margin']
     vis['subview_scroll_size_w'] = vis['subview_w']
