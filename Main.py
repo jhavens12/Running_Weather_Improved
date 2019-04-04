@@ -334,7 +334,12 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['nautical_twilight']['text_color'] = regular
 
                 #Civil
-                print(forecast_dict[day]['time'])
+                if forecast_dict[peroid][day]['time'] > forecast_dict[peroid][day]['twilight']['civil_twilight_begin_time']:
+                    #if AM running time is greater (later) than the start of civil twilight
+                    brightness = "Dark"
+                else:
+                    brightness = "Bright"
+
                 forecast_dict[peroid][day]['data']['civil_twilight'] = {}
                 forecast_dict[peroid][day]['data']['civil_twilight']['title'] = 'Civil:'
                 forecast_dict[peroid][day]['data']['civil_twilight']['value'] = forecast_dict[peroid][day]['twilight']['civil_twilight_begin_time']
@@ -354,6 +359,7 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['sunset_time']['text_color'] = regular
 
                 #Civil
+                brightness = "N/A"
                 forecast_dict[peroid][day]['data']['civil_twilight'] = {}
                 forecast_dict[peroid][day]['data']['civil_twilight']['title'] = 'Civil:'
                 forecast_dict[peroid][day]['data']['civil_twilight']['value'] = forecast_dict[peroid][day]['twilight']['civil_twilight_begin_time']
@@ -374,7 +380,7 @@ def build_data(forecast_dict):
             #Brightness
             forecast_dict[peroid][day]['data']['brightness'] = {}
             forecast_dict[peroid][day]['data']['brightness']['title'] = 'Brightness:'
-            forecast_dict[peroid][day]['data']['brightness']['value'] = 'Test'
+            forecast_dict[peroid][day]['data']['brightness']['value'] = brightness
             forecast_dict[peroid][day]['data']['brightness']['text_color'] = regular
 
             #STATUS - bottom of the view
@@ -557,7 +563,7 @@ try:
 except Exception:
     os.remove("History.dict")
     print("Import of data from history.dict FAILED")
-    print("Removing old dictionary file..."
+    print("Removing old dictionary file...")
     print("Trying again...")
     print()
     forecast_dict = get_data.forecast_me_2() #get actual data
