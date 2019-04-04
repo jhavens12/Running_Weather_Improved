@@ -144,11 +144,11 @@ def evaluate_conditions(day):
     bad_list = []
 
     #percent of rain chance
-    if float(day['weather']['precipProbability']) > 60:
+    if float(day['weather']['precipProbability']) > float(0.60):
         bg_color = bad
         bad_list.append('precipProbability') #add to bad list
         return bg_color, bad_list, warning_list #return on bad
-    if float(day['weather']['precipProbability']) > 30:
+    if float(day['weather']['precipProbability']) > float(0.30):
         warning_list.append('precipProbability')
         bg_color = warning
     #apparent temperature
@@ -184,11 +184,11 @@ def evaluate_conditions(day):
         warning_list.append('windGust')
         bg_color = warning
     #Humidity
-    if float(day['weather']['humidity']) > 99:
+    if float(day['weather']['humidity']) > float(0.99):
         bg_color = bad
         bad_list.append('humidity')
         return bg_color, bad_list, warning_list #return on bad
-    if float(day['weather']['humidity']) > 85:
+    if float(day['weather']['humidity']) > float(0.85):
         warning_list.append('humidity')
         bg_color = warning
     #'cloudCover'
