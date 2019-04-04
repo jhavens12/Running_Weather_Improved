@@ -334,8 +334,8 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['nautical_twilight']['text_color'] = regular
 
                 #Civil
-                if forecast_dict[peroid][day]['time'] > forecast_dict[peroid][day]['twilight']['civil_twilight_begin_time']:
-                    #if AM running time is greater (later) than the start of civil twilight
+                if forecast_dict[peroid][day]['time'] < (forecast_dict[peroid][day]['twilight']['civil_twilight_begin'] - datetime.timedelta(minutes=10)):
+                    #if AM running time is smaller (earlier) than the start of civil twilight
                     brightness = "Dark"
                 else:
                     brightness = "Bright"
