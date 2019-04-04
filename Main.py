@@ -366,19 +366,19 @@ def build_data(forecast_dict):
                     brightness = "Bright"
                 forecast_dict[peroid][day]['data']['civil_twilight'] = {}
                 forecast_dict[peroid][day]['data']['civil_twilight']['title'] = 'Civil:'
-                forecast_dict[peroid][day]['data']['civil_twilight']['value'] = forecast_dict[peroid][day]['twilight']['civil_twilight_begin_time']
+                forecast_dict[peroid][day]['data']['civil_twilight']['value'] = forecast_dict[peroid][day]['twilight']['civil_twilight_end_time']
                 forecast_dict[peroid][day]['data']['civil_twilight']['text_color'] = regular
 
                 #Nautical
                 forecast_dict[peroid][day]['data']['nautical_twilight'] = {}
                 forecast_dict[peroid][day]['data']['nautical_twilight']['title'] = 'Nautical:'
-                forecast_dict[peroid][day]['data']['nautical_twilight']['value'] = forecast_dict[peroid][day]['twilight']['nautical_twilight_begin_time']
+                forecast_dict[peroid][day]['data']['nautical_twilight']['value'] = forecast_dict[peroid][day]['twilight']['nautical_twilight_end_time']
                 forecast_dict[peroid][day]['data']['nautical_twilight']['text_color'] = regular
 
                 #Astro
                 forecast_dict[peroid][day]['data']['astronomical_twilight'] = {}
                 forecast_dict[peroid][day]['data']['astronomical_twilight']['title'] = 'Astro:'
-                forecast_dict[peroid][day]['data']['astronomical_twilight']['value'] = forecast_dict[peroid][day]['twilight']['astronomical_twilight_begin_time']
+                forecast_dict[peroid][day]['data']['astronomical_twilight']['value'] = forecast_dict[peroid][day]['twilight']['astronomical_twilight_end_time']
                 forecast_dict[peroid][day]['data']['astronomical_twilight']['text_color'] = regular
 
             #Brightness
