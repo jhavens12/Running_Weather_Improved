@@ -337,8 +337,10 @@ def build_data(forecast_dict):
                 if forecast_dict[peroid][day]['time'] < (forecast_dict[peroid][day]['twilight']['civil_twilight_begin'] - datetime.timedelta(minutes=10)):
                     #if AM running time is smaller (earlier) than the start of civil twilight minus 10 minutes
                     brightness = "Dark"
+                    brightness_text_color = "red"
                 else:
                     brightness = "Bright"
+                    brightness_text_color = regular
 
                 forecast_dict[peroid][day]['data']['civil_twilight'] = {}
                 forecast_dict[peroid][day]['data']['civil_twilight']['title'] = 'Civil:'
@@ -365,8 +367,10 @@ def build_data(forecast_dict):
                 if forecast_dict[peroid][day]['time'] > (forecast_dict[peroid][day]['twilight']['civil_twilight_end'] - datetime.timedelta(minutes=30)):
                     #if AM running time is smaller (earlier) than the start of civil twilight minus 10 minutes
                     brightness = "Dark"
+                    brightness_text_color = "red"
                 else:
                     brightness = "Bright"
+                    brightness_text_color = regular
                 forecast_dict[peroid][day]['data']['civil_twilight'] = {}
                 forecast_dict[peroid][day]['data']['civil_twilight']['title'] = 'Civil:'
                 forecast_dict[peroid][day]['data']['civil_twilight']['value'] = forecast_dict[peroid][day]['twilight']['civil_twilight_end_time']
@@ -388,7 +392,7 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['brightness'] = {}
             forecast_dict[peroid][day]['data']['brightness']['title'] = 'Brightness:'
             forecast_dict[peroid][day]['data']['brightness']['value'] = brightness
-            forecast_dict[peroid][day]['data']['brightness']['text_color'] = regular
+            forecast_dict[peroid][day]['data']['brightness']['text_color'] = brightness_text_color
 
             #STATUS - bottom of the view
             # working_status = '\n'.join(status_list)
