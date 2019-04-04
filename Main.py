@@ -335,7 +335,7 @@ def build_data(forecast_dict):
 
                 #Civil
                 if forecast_dict[peroid][day]['time'] < (forecast_dict[peroid][day]['twilight']['civil_twilight_begin'] - datetime.timedelta(minutes=10)):
-                    #if AM running time is smaller (earlier) than the start of civil twilight
+                    #if AM running time is smaller (earlier) than the start of civil twilight minus 10 minutes
                     brightness = "Dark"
                 else:
                     brightness = "Bright"
@@ -359,7 +359,11 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['sunset_time']['text_color'] = regular
 
                 #Civil
-                brightness = "N/A"
+                if forecast_dict[peroid][day]['time'] < (forecast_dict[peroid][day]['twilight']['civil_twilight_begin']):
+                    #if AM running time is smaller (earlier) than the start of civil twilight minus 10 minutes
+                    brightness = "Dark"
+                else:
+                    brightness = "Bright"
                 forecast_dict[peroid][day]['data']['civil_twilight'] = {}
                 forecast_dict[peroid][day]['data']['civil_twilight']['title'] = 'Civil:'
                 forecast_dict[peroid][day]['data']['civil_twilight']['value'] = forecast_dict[peroid][day]['twilight']['civil_twilight_begin_time']
