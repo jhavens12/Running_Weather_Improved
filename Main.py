@@ -191,7 +191,14 @@ def evaluate_conditions(day):
     if float(day['weather']['humidity']) > 85:
         warning_list.append('humidity')
         bg_color = warning
-
+    #'cloudCover'
+    if float(day['weather']['cloudCover']) > 90:
+        bg_color = warning
+        bad_list.append('cloudCover')
+        #return bg_color, bad_list, warning_list #return on bad
+    if float(day['weather']['cloudCover']) > 60:
+        warning_list.append('cloudCover')
+        bg_color = warning
     return bg_color, bad_list, warning_list
 
 
@@ -310,6 +317,10 @@ def build_data(forecast_dict):
             except Exception:
                 forecast_dict[peroid][day]['data']['cloudCover']['value'] = "N/A"
             text_color = 'black'
+            if 'cloudCover' in warning_list:
+                text_color = 'red'
+            if 'cloudCover' in bad_list:
+                text_color = 'red'
             forecast_dict[peroid][day]['data']['cloudCover']['text_color'] = text_color
 
             # #WINDCHILL
