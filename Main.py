@@ -194,11 +194,11 @@ def evaluate_conditions(day):
     #'cloudCover'
     print(day['weather']['cloudCover'])
     print(float(day['weather']['cloudCover']))
-    if float(day['weather']['cloudCover']) > 0.90:
+    if float(day['weather']['cloudCover']) > float(0.90):
         bg_color = warning
         bad_list.append('cloudCover')
         #return bg_color, bad_list, warning_list #return on bad
-    if float(day['weather']['cloudCover']) > 0.60:
+    if float(day['weather']['cloudCover']) > float(0.60):
         warning_list.append('cloudCover')
         bg_color = warning
     return bg_color, bad_list, warning_list
