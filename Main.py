@@ -334,6 +334,7 @@ def build_data(forecast_dict):
                 forecast_dict[peroid][day]['data']['nautical_twilight']['text_color'] = regular
 
                 #Civil
+                print(forecast_dict[day]['time'])
                 forecast_dict[peroid][day]['data']['civil_twilight'] = {}
                 forecast_dict[peroid][day]['data']['civil_twilight']['title'] = 'Civil:'
                 forecast_dict[peroid][day]['data']['civil_twilight']['value'] = forecast_dict[peroid][day]['twilight']['civil_twilight_begin_time']
