@@ -362,7 +362,7 @@ def build_data(forecast_dict):
                 print("date: ", str(forecast_dict[peroid][day]['time']))
                 print("civil end: ",str(forecast_dict[peroid][day]['twilight']['civil_twilight_end']))
                 print("civil end - 30: ",str(forecast_dict[peroid][day]['twilight']['civil_twilight_end'] - datetime.timedelta(minutes=30)))
-                if forecast_dict[peroid][day]['time'] < (forecast_dict[peroid][day]['twilight']['civil_twilight_end'] - datetime.timedelta(minutes=30)):
+                if forecast_dict[peroid][day]['time'] > (forecast_dict[peroid][day]['twilight']['civil_twilight_end'] - datetime.timedelta(minutes=30)):
                     #if AM running time is smaller (earlier) than the start of civil twilight minus 10 minutes
                     brightness = "Dark"
                 else:
