@@ -15,8 +15,11 @@ def pil2ui(ui,imgIn):
         del bIO
     return imgOut
 
+# def percent(input):
+#     return "{0:.0%}".format(input)
+
 def percent(input):
-    return "{0:.0%}".format(input)
+    return "{0:.0%}".format(input*.01)
 
 def vis(w,h):
 
@@ -210,7 +213,6 @@ def build_data(forecast_dict):
 
             forecast_dict[peroid][day]['data'] = {}
 
-
             #BG and text eval
             forecast_dict[peroid][day]['bg_color'],bad_list,warning_list = evaluate_conditions(forecast_dict[peroid][day])
 
@@ -235,27 +237,27 @@ def build_data(forecast_dict):
                 text_color = 'red'
             forecast_dict[peroid][day]['data']['temp']['text_color'] = text_color
 
-            #REAL FEEL
-            forecast_dict[peroid][day]['data']['real_feel'] = {}
-            forecast_dict[peroid][day]['data']['real_feel']['title'] = 'Feels Like:'
-            forecast_dict[peroid][day]['data']['real_feel']['value'] = forecast_dict[peroid][day]['weather']['temp']#['feelslike']['english']
+            # #REAL FEEL
+            # forecast_dict[peroid][day]['data']['real_feel'] = {}
+            # forecast_dict[peroid][day]['data']['real_feel']['title'] = 'Feels Like:'
+            # forecast_dict[peroid][day]['data']['real_feel']['value'] = forecast_dict[peroid][day]['weather']['temp']#['feelslike']['english']
+            #
+            # text_color= 'black'
+            # if 'temp' in warning_list:
+            #     text_color = 'red'
+            # if 'temp' in bad_list:
+            #     text_color = 'red'
+            # forecast_dict[peroid][day]['data']['real_feel']['text_color'] = text_color
 
-            text_color= 'black'
-            if 'temp' in warning_list:
-                text_color = 'red'
-            if 'temp' in bad_list:
-                text_color = 'red'
-            forecast_dict[peroid][day]['data']['real_feel']['text_color'] = text_color
-
-            #'precipType'
-            forecast_dict[peroid][day]['data']['precipType'] = {}
-            forecast_dict[peroid][day]['data']['precipType']['title'] = 'Precip Type:'
-            try:
-                forecast_dict[peroid][day]['data']['precipType']['value'] = "N/A"#forecast_dict[peroid][day]['weather']['precipType'].title()#capitalize
-            except Exception:
-                forecast_dict[peroid][day]['data']['precipType']['value'] = "N/A"
-            text_color= 'black'
-            forecast_dict[peroid][day]['data']['precipType']['text_color'] = text_color
+            # #'precipType'
+            # forecast_dict[peroid][day]['data']['precipType'] = {}
+            # forecast_dict[peroid][day]['data']['precipType']['title'] = 'Precip Type:'
+            # try:
+            #     forecast_dict[peroid][day]['data']['precipType']['value'] = "N/A"#forecast_dict[peroid][day]['weather']['precipType'].title()#capitalize
+            # except Exception:
+            #     forecast_dict[peroid][day]['data']['precipType']['value'] = "N/A"
+            # text_color= 'black'
+            # forecast_dict[peroid][day]['data']['precipType']['text_color'] = text_color
 
             #POP
             forecast_dict[peroid][day]['data']['pop'] = {}
