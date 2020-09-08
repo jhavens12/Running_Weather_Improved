@@ -7,10 +7,6 @@ from pathlib import Path
 from darksky import forecast
 import calendar
 
-wu_key = credentials.wu_key
-my_lat = credentials.my_lat
-my_long = credentials.my_long
-
 UTC_adjust = datetime.timedelta(hours=4)
 
 def open_file():
@@ -76,6 +72,56 @@ def twilight(date_input):
 
     return sunrise_dict
 
+def forecast_vc():
+
+    forecast_dict = open_file()
+    current_timestamp = datetime.datetime.now()
+    if forecast_dict['timestamp'] < current_timestamp-datetime.timedelta(hours=.5):
+        print("Last data gathered at: "+str(forecast_dict['timestamp']))
+        print("Gathering new information")
+        print("Please Wait...")
+        print()
+
+        forecast_dict = {} #reset the dictionary
+        forecast_dict['PM'] = {}
+        forecast_dict['AM'] = {}
+
+        vc_url = credentials.vc_url
+        result = requests.get(vc_url).json()
+        for hour in result['location']['values']:
+
+        #for hour in boston.hourly:
+            time = datetime.datetime.fromtimestamp(hour['datetime']/1000)
+
+            if calendar.day_name[time.weekday()] == 'Saturday' or calendar.day_name[time.weekday()] == 'Sunday':
+                am_hour = 7
+            else:
+                am_hour = 5
+
+            if time.hour == am_hour:
+                if time < current_timestamp + datetime.timedelta(days=3): #if date is within three days
+                    forecast_dict['AM'][time] = {}
+                    forecast_dict['AM'][time]['twilight'] = twilight(time.strftime('%Y-%m-%d'))
+                    forecast_dict['AM'][time]['time'] = time
+                    forecast_dict['AM'][time]['weather'] = hour #add object to dictionary
+
+            if time.hour == 17:
+                if time < current_timestamp + datetime.timedelta(days=3): #if date is within three days
+                    forecast_dict['PM'][time] = {}
+                    forecast_dict['PM'][time]['twilight'] = twilight(time.strftime('%Y-%m-%d'))
+                    forecast_dict['PM'][time]['time'] = time
+                    forecast_dict['PM'][time]['weather'] = hour
+
+        close_file(forecast_dict) #save the dictionary
+        del forecast_dict['timestamp'] #delete timestamp after saving, before passing along
+        return forecast_dict
+
+    else:
+        print("Found existing dictionary boys")
+        del forecast_dict['timestamp'] #delete timestamp so it does not interfere
+        return forecast_dict
+
+
 def forecast_me_2():
 
     forecast_dict = open_file()
@@ -97,6 +143,7 @@ def forecast_me_2():
         #request = "https://api.darksky.net/forecast/"+ds_key+"/"+my_lat+","+my_long
         boston = forecast(ds_key, my_lat, my_long, extend='hourly')
         current_timestamp = datetime.datetime.now()
+
         for hour in boston.hourly:
             time = datetime.datetime.fromtimestamp(hour.time)
 

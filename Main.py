@@ -203,7 +203,6 @@ def evaluate_conditions(day):
         bg_color = warning
     return bg_color, bad_list, warning_list
 
-
 def build_data(forecast_dict):
     for peroid in forecast_dict:
         for day in forecast_dict[peroid]:
@@ -454,27 +453,6 @@ def gen_imageview(day,timeset,view_name):
     imageview.border_color = "grey"
     return imageview
 
-    # #Headers
-    # label_name = "header_"+str(view_name)
-    # header = ui.Label(name = label_name, bg_color ='transparent', frame=(vis['imageview_x'], vis['imageview_y'], vis['imageview_width'], vis['imageview_height']))
-    # if timeset == 'AM':
-    #     header.text_color = 'black'
-    #     header.border_color = 'black'
-    # if timeset == 'PM':
-    #     header.text_color = 'white'
-    #     header.border_color = 'white'
-    # #header.border_color = 'white'
-    # #header.text_color = 'white'
-    # #header.tint_color = 'black'
-    # header.corner_radius = 15
-    # header.border_width = 0
-    # header.alignment = 1 #1 is center, 0 is left justified
-    # header.font = ('<system-bold>',vis['header_label_size'])
-    # header.number_of_lines = 3
-    # header.text = str(day['weather']['summary'])#['mon_abbrev']+" "+day['time']['mday']+"\n"+day['time']['weekday_name']+" "+day['time']['civil']
-
-    # return header
-
 
 def gen_timeset_view(day,timeset,view_name):
     #Image View
@@ -583,14 +561,14 @@ w,h = ui.get_screen_size()
 view = ui.View(bg_color = 'white', frame = (0,0,w,h)) #main view
 
 try:
-    forecast_dict = get_data.forecast_me_2() #get actual data
+    forecast_dict = get_data.forecast_vc() #get actual data
 except Exception:
     os.remove("History.dict")
     print("Import of data from history.dict FAILED")
     print("Removing old dictionary file...")
     print("Trying again...")
     print()
-    forecast_dict = get_data.forecast_me_2() #get actual data
+    forecast_dict = get_data.forecast_vc() #get actual data
 
 am_count = len(forecast_dict['AM'])
 pm_count = len(forecast_dict['PM'])
@@ -651,10 +629,6 @@ for x in am_subview_list:
     view_dict[x.title] = x
 for x in pm_subview_list:
     view_dict[x.title] = x
-
-# print()
-# pprint(view_dict)
-# print()
 
 #AM
 for working_subview,day in zip(am_subview_list,forecast_dict['AM']): #for each am day, build objects to add to subview and add them
@@ -741,4 +715,4 @@ else:
     view.add_subview(am3)
 
 
-view.present(style='sheet', hide_title_bar=True)
+view.present(style='fullscreen', hide_title_bar=True)
