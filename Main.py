@@ -128,10 +128,10 @@ def eval_text_color(value,type):
             return good,None
     #HUMIDITY
     if type == 'humidity':
-        if value > 70:
+        if value > 85:
             status = 'Humidity of '+str(value)+' is pretty high'
             return okay, status
-        if value > 90:
+        if value > 99:
             status = 'Humidity of '+str(value)+' is really high'
             return not_good, status
         else:
@@ -197,11 +197,11 @@ def evaluate_conditions(day):
     #'cloudcover'
     print(day['weather']['cloudcover'])
     print(float(day['weather']['cloudcover']))
-    if float(day['weather']['cloudcover']) > float(0.90):
+    if float(day['weather']['cloudcover']) > 90:#float(0.90):
         bg_color = warning
         bad_list.append('cloudcover')
         #return bg_color, bad_list, warning_list #return on bad
-    if float(day['weather']['cloudcover']) > float(0.60):
+    if float(day['weather']['cloudcover']) > 60:#float(0.60):
         warning_list.append('cloudcover')
         bg_color = warning
     return bg_color, bad_list, warning_list
