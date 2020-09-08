@@ -187,7 +187,7 @@ def evaluate_conditions(day):
         warning_list.append('wgust')
         bg_color = warning
     #Humidity
-    if float(day['weather']['humidity']) > 99:#float(0.99): 
+    if float(day['weather']['humidity']) > 99:#float(0.99):
         bg_color = bad
         bad_list.append('humidity')
         return bg_color, bad_list, warning_list #return on bad
@@ -275,7 +275,14 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['humidity'] = {}
             forecast_dict[peroid][day]['data']['humidity']['title'] = 'Humidity:'
             forecast_dict[peroid][day]['data']['humidity']['value'] = percent(forecast_dict[peroid][day]['weather']['humidity'])
-            text_color = 'black' #eval_text_color(forecast_dict[peroid][day]['weather']['humidity'],'humidity')
+            #text_color = eval_text_color(forecast_dict[peroid][day]['weather']['humidity'],'humidity')
+
+            text_color= 'black'
+            if 'humidity' in warning_list:
+                text_color = 'red'
+            if 'humidity' in bad_list:
+                text_color = 'red'
+
             forecast_dict[peroid][day]['data']['humidity']['text_color'] = text_color
 
             # #DEWPOINT
