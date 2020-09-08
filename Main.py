@@ -260,9 +260,9 @@ def build_data(forecast_dict):
             #POP
             forecast_dict[peroid][day]['data']['pop'] = {}
             forecast_dict[peroid][day]['data']['pop']['title'] = '% Precipitation:'
-            forecast_dict[peroid][day]['data']['pop']['value'] = percent(forecast_dict[peroid][day]['weather']['pop']#['precip'])#['pop']
+            forecast_dict[peroid][day]['data']['pop']['value'] = percent(forecast_dict[peroid][day]['weather']['pop'])#['precip'])#['pop']
 
-            text_color= 'black'
+            text_color = 'black'
             if 'precip' in warning_list:
                 text_color = 'red'
             if 'precip' in bad_list:

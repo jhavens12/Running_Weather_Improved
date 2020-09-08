@@ -94,6 +94,7 @@ def forecast_vc():
 
         vc_url = credentials.vc_url
         result = requests.get(vc_url).json()
+        pprint(result)
         for hour in result['location']['values']:
 
         #for hour in boston.hourly:
