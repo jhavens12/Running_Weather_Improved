@@ -42,7 +42,13 @@ def nice_time(time):
     return str(time.time().strftime("%I:%M:%S"))
 
 def twilight(date_input):
+
+
+    my_lat = credentials.my_lat
+    my_long = credentials.my_long
+
     sunrise_dict = {}
+
     url = "https://api.sunrise-sunset.org/json?lat="+my_lat+"&lng="+my_long+"&date="+date_input
     try:
         print("Getting sunrise data...")
@@ -73,9 +79,6 @@ def twilight(date_input):
     return sunrise_dict
 
 def forecast_vc():
-
-    my_lat = credentials.my_lat
-    my_long = credentials.my_long
 
     forecast_dict = open_file()
     current_timestamp = datetime.datetime.now()
