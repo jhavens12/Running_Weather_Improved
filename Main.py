@@ -221,7 +221,7 @@ def build_data(forecast_dict):
             #CONDITION
             forecast_dict[peroid][day]['data']['condition'] = {}
             forecast_dict[peroid][day]['data']['condition']['title'] = 'Condition:'
-            forecast_dict[peroid][day]['data']['condition']['value'] = forecast_dict[peroid][day]['weather']['summary']#['condition']
+            forecast_dict[peroid][day]['data']['condition']['value'] = forecast_dict[peroid][day]['weather']['conditions']#['summary']#['condition']
             forecast_dict[peroid][day]['data']['condition']['text_color'] = regular
 
             #temp
@@ -251,7 +251,7 @@ def build_data(forecast_dict):
             forecast_dict[peroid][day]['data']['precipType'] = {}
             forecast_dict[peroid][day]['data']['precipType']['title'] = 'Precip Type:'
             try:
-                forecast_dict[peroid][day]['data']['precipType']['value'] = forecast_dict[peroid][day]['weather']['precipType'].title()#capitalize
+                forecast_dict[peroid][day]['data']['precipType']['value'] = "N/A"#forecast_dict[peroid][day]['weather']['precipType'].title()#capitalize
             except Exception:
                 forecast_dict[peroid][day]['data']['precipType']['value'] = "N/A"
             text_color= 'black'
@@ -260,7 +260,7 @@ def build_data(forecast_dict):
             #POP
             forecast_dict[peroid][day]['data']['pop'] = {}
             forecast_dict[peroid][day]['data']['pop']['title'] = '% Precipitation:'
-            forecast_dict[peroid][day]['data']['pop']['value'] = percent(forecast_dict[peroid][day]['weather']['precip'])#['pop']
+            forecast_dict[peroid][day]['data']['pop']['value'] = percent(forecast_dict[peroid][day]['weather']['pop']#['precip'])#['pop']
 
             text_color= 'black'
             if 'precip' in warning_list:
@@ -285,7 +285,7 @@ def build_data(forecast_dict):
             #UVI
             forecast_dict[peroid][day]['data']['uvi'] = {}
             forecast_dict[peroid][day]['data']['uvi']['title'] = 'UV Index:'
-            forecast_dict[peroid][day]['data']['uvi']['value'] = forecast_dict[peroid][day]['weather']['uvIndex']
+            forecast_dict[peroid][day]['data']['uvi']['value'] = 'N/A'#forecast_dict[peroid][day]['weather']['uvIndex']
             forecast_dict[peroid][day]['data']['uvi']['text_color'] = regular
 
             #wspd
