@@ -74,6 +74,9 @@ def twilight(date_input):
 
 def forecast_vc():
 
+    my_lat = credentials.my_lat
+    my_long = credentials.my_long
+
     forecast_dict = open_file()
     current_timestamp = datetime.datetime.now()
     if forecast_dict['timestamp'] < current_timestamp-datetime.timedelta(hours=.5):
