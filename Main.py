@@ -131,7 +131,7 @@ def eval_text_color(value,type):
         if value > 70:
             status = 'Humidity of '+str(value)+' is pretty high'
             return okay, status
-        if value > 80:
+        if value > 90:
             status = 'Humidity of '+str(value)+' is really high'
             return not_good, status
         else:
@@ -187,11 +187,11 @@ def evaluate_conditions(day):
         warning_list.append('wgust')
         bg_color = warning
     #Humidity
-    if float(day['weather']['humidity']) > float(0.99):
+    if float(day['weather']['humidity']) > 99:#float(0.99):
         bg_color = bad
         bad_list.append('humidity')
         return bg_color, bad_list, warning_list #return on bad
-    if float(day['weather']['humidity']) > float(0.85):
+    if float(day['weather']['humidity']) > 85:#float(0.85):
         warning_list.append('humidity')
         bg_color = warning
     #'cloudcover'
@@ -284,11 +284,11 @@ def build_data(forecast_dict):
             # forecast_dict[peroid][day]['data']['dewpoint']['value'] = forecast_dict[peroid][day]['weather']['dewPoint']#['dewpoint']['english']
             # forecast_dict[peroid][day]['data']['dewpoint']['text_color'] = regular
 
-            #UVI
-            forecast_dict[peroid][day]['data']['uvi'] = {}
-            forecast_dict[peroid][day]['data']['uvi']['title'] = 'UV Index:'
-            forecast_dict[peroid][day]['data']['uvi']['value'] = 'N/A'#forecast_dict[peroid][day]['weather']['uvIndex']
-            forecast_dict[peroid][day]['data']['uvi']['text_color'] = regular
+            # #UVI
+            # forecast_dict[peroid][day]['data']['uvi'] = {}
+            # forecast_dict[peroid][day]['data']['uvi']['title'] = 'UV Index:'
+            # forecast_dict[peroid][day]['data']['uvi']['value'] = 'N/A'#forecast_dict[peroid][day]['weather']['uvIndex']
+            # forecast_dict[peroid][day]['data']['uvi']['text_color'] = regular
 
             #wspd
             forecast_dict[peroid][day]['data']['wspd'] = {}
