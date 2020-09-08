@@ -187,7 +187,7 @@ def evaluate_conditions(day):
         warning_list.append('wgust')
         bg_color = warning
     #Humidity
-    if float(day['weather']['humidity']) > 99:#float(0.99):
+    if float(day['weather']['humidity']) > 99:#float(0.99): 
         bg_color = bad
         bad_list.append('humidity')
         return bg_color, bad_list, warning_list #return on bad
